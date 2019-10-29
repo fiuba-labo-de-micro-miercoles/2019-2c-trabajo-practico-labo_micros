@@ -1,4 +1,4 @@
-# Proyecto: _Láser_ auntonivelante
+# Proyecto: _Láser_ autonivelante
 
 6609/8607 Laboratorio de Microcontroladores
 
