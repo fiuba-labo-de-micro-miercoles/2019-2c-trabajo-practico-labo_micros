@@ -4,7 +4,7 @@
 .global serial_init
 serial_init:
 
-	; transmition rate
+	; transmission rate
 	ldi r16, HIGH(BAUD_RATE)
 	sts UBRR0H, r16
 	ldi r16, LOW(BAUD_RATE)

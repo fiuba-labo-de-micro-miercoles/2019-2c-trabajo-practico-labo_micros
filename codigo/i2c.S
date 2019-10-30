@@ -25,12 +25,56 @@ i2c_init:
 .global i2c_start
 i2c_start:
 
-	; sends the start request
+	; sends the START request
 	; to receive data from slave
 	ldi r16, (1<<TWINT)|(1<<TWSTA)|(1<<TWEN)
 	sts TWCR, r16
 
+	; waits TWINT flag set
+	; to indicate START condition
+	; has been transmited
+wait_start:
+	lds r16, TWCR
+	sbrs r16, TWINT
+	rjmp wait_start
+
+	; check TWI status register
+	; to verify START status
+	; goto error otherwise
+	lds r16, TWSR
+	andi r16, STAT_CODE
+	cpi r16, START
+	brne error
+
+	; loads SLA_R into TWDR
+	; and clears TWINT in TWCR
+	; register to start transmission
+	; of address
+	ldi r16, SLA_R
+	sts TWDR, r16
+	ldi r16, (1<<TWINT)|(1<<TWEN)
+	sts TWCR, r16
+
+	; waits TWINT flag set
+	; to indicate SLA_R
+	; has been transmited
+	; and the ACK has been received
+wait_sla_r:
+	lds r16, TWCR
+	sbrs r16, TWINT
+	rjmp wait_start
+
+	; check TWI status register
+	; to verify SLA_R ACK received,
+	; goto error otherwise
+	lds r16, TWSR
+	andi r16, STAT_CODE
+	cpi r16, SLA_R_ACK
+	brne error
+
 	ret
+
+error: rjmp error
 
 .global i2c_receive
 i2c_receive:
