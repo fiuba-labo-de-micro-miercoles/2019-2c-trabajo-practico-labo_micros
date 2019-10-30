@@ -6,8 +6,6 @@ setup:
 	call serial_init
 	call i2c_init
 
-	call i2c_start
-
 	ret
 
 .global loop

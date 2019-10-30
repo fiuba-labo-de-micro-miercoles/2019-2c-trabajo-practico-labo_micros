@@ -20,9 +20,10 @@ i2c_init:
 	ldi r16, (1<<TWEN)|(0<<TWIE)
 	sts TWCR, r16
 
+	rcall i2c_start
+
 	ret
 
-.global i2c_start
 i2c_start:
 
 	; sends the START request
