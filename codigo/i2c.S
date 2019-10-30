@@ -62,7 +62,7 @@ wait_start:
 wait_sla_r:
 	lds r16, TWCR
 	sbrs r16, TWINT
-	rjmp wait_start
+	rjmp wait_sla_r
 
 	; check TWI status register
 	; to verify SLA_R ACK received,
@@ -74,10 +74,25 @@ wait_sla_r:
 
 	ret
 
-error: rjmp error
-
 .global i2c_receive
 i2c_receive:
 
+	; returns value in
+	; r17 register
+	lds r17, TWDR
+
+	; check TWI status register
+	; to verify correction in
+	; byte received and ACK send,
+	; goto error otherwise
+	lds r16, TWSR
+	andi r16, STAT_CODE
+	cpi r16, DATA_RECV_ACK
+	brne error
+
 	ret
+
+; error jump code
+; loops for ever
+error: rjmp error
 
