@@ -1,8 +1,8 @@
 #include "avrx.h"
 #include "serial.h"
 
-.global init_serial
-init_serial:
+.global serial_init
+serial_init:
 
 	; transmition rate
 	ldi r16, HIGH(BAUD_RATE)
@@ -20,8 +20,8 @@ init_serial:
 	
 	ret
 
-.global transmit
-transmit:
+.global serial_transmit
+serial_transmit:
 
 	// it receives data
 	// in r16 register

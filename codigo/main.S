@@ -13,7 +13,7 @@ main:
 	out _SFR_IO_ADDR(SPL), r16
 
 	call setup
-	call loop
 
-here: rjmp here
+here:	call loop
+	rjmp here
 

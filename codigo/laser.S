@@ -3,10 +3,10 @@
 .global setup
 setup:
 
-	call init_serial
-	call init_i2c
+	call serial_init
+	call i2c_init
 
-	call start_i2c
+	call i2c_start
 
 	ret
 
@@ -14,9 +14,9 @@ setup:
 loop:
 	ldi r16, 'a'
 	
-	call transmit
+	call serial_transmit
 	
 	call delay_1
 	
-	rjmp loop
+	ret
 

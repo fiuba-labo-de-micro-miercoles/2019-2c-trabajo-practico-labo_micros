@@ -1,8 +1,8 @@
 #include "avrx.h"
 #include "i2c.h"
 
-.global init_i2c
-init_i2c:
+.global i2c_init
+i2c_init:
 
 	; it uses the TWI:
 	; Two Wire Interface
@@ -22,13 +22,18 @@ init_i2c:
 
 	ret
 
-.global start_i2c
-start_i2c:
+.global i2c_start
+i2c_start:
 
 	; sends the start request
 	; to receive data from slave
 	ldi r16, (1<<TWINT)|(1<<TWSTA)|(1<<TWEN)
 	sts TWCR, r16
+
+	ret
+
+.global i2c_receive
+i2c_receive:
 
 	ret
 
