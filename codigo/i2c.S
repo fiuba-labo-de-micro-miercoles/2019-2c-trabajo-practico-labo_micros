@@ -1,6 +1,19 @@
 #include "avrx.h"
 #include "i2c.h"
 
+;-----------------------------
+;      TWI-I2C Protocol
+;-----------------------------
+
+DSEG
+WHO_AM_I_ADDR: BYTE 1
+
+CSEG
+
+;---------------------------
+;-----   INITIALIZE   ------
+;---------------------------
+
 .global i2c_init
 i2c_init:
 
@@ -8,7 +21,7 @@ i2c_init:
 	; Two Wire Interface
 	
 	; pre-scaler
-	ldi r16, (0<<TWPS1)|(1<<TWPS0)
+	ldi r16, (0<<TWPS1)|(0<<TWPS0)
 	sts TWSR, r16
 
 	; sets bit-rate
@@ -20,9 +33,42 @@ i2c_init:
 	ldi r16, (1<<TWEN)|(0<<TWIE)
 	sts TWCR, r16
 
-	rcall i2c_start
+	call i2c_start
+
+	; reads from WHO_AM_I
+	; register: 0x75
+	ldi r16, 0x75
+	call i2c_connect
+
+	; check WHO_AM_I
+	call check_connection
 
 	ret
+
+;------------------------------
+;----   Get Acceleration  -----
+;------------------------------
+
+.global i2c_get_acceleration
+i2c_get_acceleration:
+
+
+
+	ret
+
+;--------------------------
+;----   Get Rotation  -----
+;--------------------------
+
+.global i2c_get_rotation
+i2c_get_rotation:
+
+
+	ret
+
+;************************
+;**  START CONNECTION  **
+;************************
 
 i2c_start:
 
@@ -32,68 +78,167 @@ i2c_start:
 	sts TWCR, r16
 
 	; waits TWINT flag set
-	; to indicate START condition
-	; has been transmited
-wait_start:
-	lds r16, TWCR
-	sbrs r16, TWINT
-	rjmp wait_start
+	call wait_int_i2c
 
 	; check TWI status register
 	; to verify START status
 	; goto error otherwise
 	lds r16, TWSR
-	andi r16, STAT_CODE
+	andi r16, STAT_CODE_MASK
 	cpi r16, START
-	brne error
+	call check_error
 
-	; loads SLA_R into TWDR
+	; loads SLA_W into TWDR
 	; and clears TWINT in TWCR
 	; register to start transmission
 	; of address
-	ldi r16, SLA_R
+	ldi r16, SLA_W
 	sts TWDR, r16
 	ldi r16, (1<<TWINT)|(1<<TWEN)
 	sts TWCR, r16
 
 	; waits TWINT flag set
-	; to indicate SLA_R
-	; has been transmited
-	; and the ACK has been received
-wait_sla_r:
+	call wait_int_i2c
+
+	; check TWI status register
+	; to verify SLA_W ACK received,
+	; goto error otherwise
+	lds r16, TWSR
+	andi r16, STAT_CODE_MASK
+	cpi r16, SLA_W_ACK
+	call check_error
+
+	ret
+
+;******************
+;**  CONNECTION  **
+;******************
+
+i2c_connect:
+
+	; register address comes
+	; in r16
+	sts TWDR, r16
+	ldi r16, (1<<TWINT)|(1<<TWEN)
+	sts TWCR, r16
+
+	; waits TWINT flag set
+	call wait_int_i2c
+
+	; check TWI status register
+	; to verify DATA ACK received,
+	; goto error otherwise
+	lds r16, TWSR
+	andi r16, STAT_CODE_MASK
+	cpi r16, DATA_SEND_ACK
+	call check_error
+
+	; repeats start
+	ldi r16, (1<<TWINT)|(1<<TWSTA)|(1<<TWEN)
+	sts TWCR, r16
+
+	; waits TWINT flag
+	call wait_int_i2c
+
+	; check TWI status register
+	; to verify REPEATED START,
+	; goto error otherwise
+	lds r16, TWSR
+	andi r16, STAT_CODE_MASK
+	cpi r16, REP_START
+	call check_error
+
+	ret
+
+wait_int_i2c:
 	lds r16, TWCR
 	sbrs r16, TWINT
-	rjmp wait_sla_r
+	rjmp wait_int_i2c
+	ret
+
+check_error:
+	brne ERROR
+	ret
+
+; error jump code
+; loops for ever
+ERROR: rjmp ERROR
+
+;*****************
+;**  READ Byte  **
+;*****************
+
+i2c_read:
+	; loads slave address in read mode
+	ldi r16, SLA_R
+	sts TWDR, r16
+	ldi r16, (1<<TWINT)|(1<<TWEN)
+	sts TWCR, r16
+
+	; waits TWINT flag
+	call wait_int_i2c
 
 	; check TWI status register
 	; to verify SLA_R ACK received,
 	; goto error otherwise
 	lds r16, TWSR
-	andi r16, STAT_CODE
+	andi r16, STAT_CODE_MASK
 	cpi r16, SLA_R_ACK
-	brne error
+	call check_error
 
-	ret
+	; sends "signal" to slave
+	; to read data from it
+	ser r16
+	sts TWDR, r16
+	ldi r16, (1<<TWINT)|(1<<TWEN)
+	sts TWCR, r16
 
-.global i2c_receive
-i2c_receive:
-
-	; returns value in
-	; r17 register
-	lds r17, TWDR
+	; waits TWINT flag
+	call wait_int_i2c
 
 	; check TWI status register
-	; to verify correction in
-	; byte received and ACK send,
+	; to verify DATA send without ACK returned,
 	; goto error otherwise
 	lds r16, TWSR
-	andi r16, STAT_CODE
-	cpi r16, DATA_RECV_ACK
-	brne error
+	andi r16, STAT_CODE_MASK
+	cpi r16, DATA_RECV_NACK
+	call check_error
+
+	; reads the data obtained
+	; with the previous transaction
+	lds r16, TWDR
 
 	ret
 
-; error jump code
-; loops for ever
-error: rjmp error
+;**********************
+;**  END CONNECTION  **
+;**********************
+
+i2c_end:
+	; sends STOP signal
+	ldi r16, (1<<TWINT)|(1<<TWSTO)|(1<<TWEN)
+	sts TWCR, r16
+
+	ret
+
+check_connection:
+
+	;**************************************
+	;**  Reads the Slave default Address **
+	;**************************************
+
+	; reads the byte
+	call i2c_read
+
+	sts WHO_AM_I_ADDR, r16
+
+	call i2c_end
+
+	; compare the value with the
+	; default
+	lds r16, WHO_AM_I_ADDR
+	cpi r16, MPU_6050_DEF_ADDR
+	call check_error
+
+	ret
 
