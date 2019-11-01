@@ -42,19 +42,18 @@
 // Data byte returned and NACK returned
 #define DATA_RECV_NACK 0x58
 
-
 ////////////////////////
 //    Slave Address   //
 ////////////////////////
 //
 // Slave Address in HIGH mode
-#define SLA_H 0x69
+#define SLA 0x69
 // Slave Address + Master mode: write
 // SLA_W
-#define SLA_W (SLA_H<<1 + 0)
+#define SLA_W (SLA<<1 + 0)
 // Slave Address + Master mode: Read
 // SLA_R
-#define SLA_R (SLA_H<<1 + 1)
+#define SLA_R (SLA<<1 + 1)
 
 /////////////////////
 //  Register bits  //

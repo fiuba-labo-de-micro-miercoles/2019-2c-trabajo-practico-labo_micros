@@ -45,31 +45,11 @@ i2c_init:
 
 	ret
 
-;------------------------------
-;----   Get Acceleration  -----
-;------------------------------
-
-.global i2c_get_acceleration
-i2c_get_acceleration:
-
-
-
-	ret
-
-;--------------------------
-;----   Get Rotation  -----
-;--------------------------
-
-.global i2c_get_rotation
-i2c_get_rotation:
-
-
-	ret
-
 ;************************
 ;**  START CONNECTION  **
 ;************************
 
+.global i2c_start
 i2c_start:
 
 	; sends the START request
@@ -114,6 +94,7 @@ i2c_start:
 ;**  CONNECTION  **
 ;******************
 
+.global i2c_connect
 i2c_connect:
 
 	; register address comes
@@ -150,24 +131,11 @@ i2c_connect:
 
 	ret
 
-wait_int_i2c:
-	lds r16, TWCR
-	sbrs r16, TWINT
-	rjmp wait_int_i2c
-	ret
-
-check_error:
-	brne ERROR
-	ret
-
-; error jump code
-; loops for ever
-ERROR: rjmp ERROR
-
 ;*****************
 ;**  READ Byte  **
 ;*****************
 
+.global i2c_read
 i2c_read:
 	; loads slave address in read mode
 	ldi r16, SLA_R
@@ -214,12 +182,17 @@ i2c_read:
 ;**  END CONNECTION  **
 ;**********************
 
+.global i2c_end
 i2c_end:
 	; sends STOP signal
 	ldi r16, (1<<TWINT)|(1<<TWSTO)|(1<<TWEN)
 	sts TWCR, r16
 
 	ret
+
+;************************
+;** Auxiliar Functions **
+;************************
 
 check_connection:
 
@@ -241,4 +214,18 @@ check_connection:
 	call check_error
 
 	ret
+
+wait_int_i2c:
+	lds r16, TWCR
+	sbrs r16, TWINT
+	rjmp wait_int_i2c
+	ret
+
+check_error:
+	brne ERROR
+	ret
+
+; error jump code
+; loops for ever
+ERROR: rjmp ERROR
 
