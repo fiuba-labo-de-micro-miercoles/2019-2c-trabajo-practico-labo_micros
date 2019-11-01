@@ -13,7 +13,9 @@ CSEG
 ;---------------------------
 ;-----   INITIALIZE   ------
 ;---------------------------
-
+;
+;---- void i2c_init(void);
+;
 .global i2c_init
 i2c_init:
 
@@ -48,7 +50,9 @@ i2c_init:
 ;************************
 ;**  START CONNECTION  **
 ;************************
-
+;
+;----- void i2c_start(void);
+;
 .global i2c_start
 i2c_start:
 
@@ -93,7 +97,10 @@ i2c_start:
 ;******************
 ;**  CONNECTION  **
 ;******************
-
+;
+;----- void i2c_connect(regaddr);
+;--------- regaddr: r16
+;
 .global i2c_connect
 i2c_connect:
 
@@ -134,7 +141,10 @@ i2c_connect:
 ;*****************
 ;**  READ Byte  **
 ;*****************
-
+;
+;----- void i2c_read(more);
+;---------- more: r17
+;
 .global i2c_read
 i2c_read:
 	; loads slave address in read mode
@@ -158,6 +168,38 @@ i2c_read:
 	; to read data from it
 	ser r16
 	sts TWDR, r16
+
+	;*********************************
+	; Send ACK or NACK, and wait
+	; for it, depending on
+	; the amount of bytes to read.
+	; For example, if more bytes
+	; are going to be read,
+	; ACK must be sent, otherwise
+	; NACK must be sent.
+	;*********************************
+
+	tst r17
+	breq stop_read
+
+	ldi r16, (1<<TWINT)|(1<<TWEN)|(1<<TWEA)
+	sts TWCR, r16
+
+	; waits TWINT flag
+	call wait_int_i2c
+
+	; check TWI status register
+	; to verify DATA sent with ACK returned,
+	; goto error otherwise
+	lds r16, TWSR
+	andi r16, STAT_CODE_MASK
+	cpi r16, DATA_RECV_ACK
+	call check_error
+
+	rjmp finish_read
+
+stop_read:
+	
 	ldi r16, (1<<TWINT)|(1<<TWEN)
 	sts TWCR, r16
 
@@ -165,12 +207,14 @@ i2c_read:
 	call wait_int_i2c
 
 	; check TWI status register
-	; to verify DATA send without ACK returned,
+	; to verify DATA sent without ACK returned,
 	; goto error otherwise
 	lds r16, TWSR
 	andi r16, STAT_CODE_MASK
 	cpi r16, DATA_RECV_NACK
 	call check_error
+
+finish_read:
 
 	; reads the data obtained
 	; with the previous transaction
@@ -181,7 +225,9 @@ i2c_read:
 ;**********************
 ;**  END CONNECTION  **
 ;**********************
-
+;
+;----- void i2c_end(void);
+;
 .global i2c_end
 i2c_end:
 	; sends STOP signal

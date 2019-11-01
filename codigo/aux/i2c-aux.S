@@ -48,78 +48,78 @@ MAIN:
 	ldi		r16, 72		; (16000/100 - 16)/2 = 72 V. hoja del MCU p. 242
 	sts		TWBR, r16	; sección 25.4.2 Bit Rate Generator Unit
 	lds		r16, TWSR
-	andi	r16, ~((1<<TWPS1)|(1<<TWPS0))
+	andi 		r16, ~((1<<TWPS1)|(1<<TWPS0))
 	sts		TWSR, r16	; sólo borra los bits TWPS1-0 del TWSR
 
 	; doy start
 	ldi		r16, (1<<TWEN)|(1<<TWSTA)|(1<<TWINT)
 	sts		TWCR, r16
-	rcall	espero_int_i2c
+	rcall		espero_int_i2c
 
 	; verifico que TWSR == START (VER twi.inc)
 	lds		r16, TWSR
-	andi	r16, TWI_STATUS_MASK
+	andi		r16, TWI_STATUS_MASK
 	cpi		r16, START
-	brne	X_SIEMPRE_I
+	brne		X_SIEMPRE_I
 
 	ldi		r16, (MPU_I2C_ADDR<<1)	; cargo dirección de esclavo a ESCRIBIR (LSBit = 0)
 	sts		TWDR, r16
 	ldi		r16, (1<<TWEN)|(1<<TWINT)
 	sts		TWCR, r16				; mando a escribir
-	rcall	espero_int_i2c
+	rcall		espero_int_i2c
 
 	lds		r16, TWSR
-	andi	r16, TWI_STATUS_MASK
+	andi		r16, TWI_STATUS_MASK
 	cpi		r16, MT_SLA_ACK			; verifico ACK del esclavo
-	brne	X_SIEMPRE
+	brne		X_SIEMPRE
 	
 	ldi		r16, 0x75	; cargo dirección del registro a leer (WHO_AM_I)
 	sts		TWDR, r16
 	ldi		r16, (1<<TWEN)|(1<<TWINT)
 	sts		TWCR, r16				; mando a escribir
-	rcall	espero_int_i2c
+	rcall		espero_int_i2c
 
 	lds		r16, TWSR
-	andi	r16, TWI_STATUS_MASK
+	andi		r16, TWI_STATUS_MASK
 	cpi		r16, MT_DATA_ACK
-	brne	X_SIEMPRE
+	brne		X_SIEMPRE
 	
 	; REPITO START
 	ldi		r16, (1<<TWEN)|(1<<TWSTA)|(1<<TWINT)
 	sts		TWCR, r16
-	rcall	espero_int_i2c
-	rjmp	sigo
+	rcall		espero_int_i2c
+	rjmp		sigo
 
 X_SIEMPRE_I:				; salto intermedio, porque el rjmp no llega hasta el final del código
-	rjmp	X_SIEMPRE
+	rjmp		X_SIEMPRE
 
 sigo:
 	lds		r16, TWSR
-	andi	r16, TWI_STATUS_MASK
+	andi		r16, TWI_STATUS_MASK
 	cpi		r16, REP_START
-	brne	X_SIEMPRE
+	brne		X_SIEMPRE
 
 	ldi		r16, (MPU_I2C_ADDR<<1)+1	; cargo dirección de esclavo a LEER (LSbit = 1)
 	sts		TWDR, r16
 	ldi		r16, (1<<TWEN)|(1<<TWINT)
 	sts		TWCR, r16				; mando a escribir
-	rcall	espero_int_i2c
+	rcall		espero_int_i2c
 
 	lds		r16, TWSR
-	andi	r16, TWI_STATUS_MASK
+	andi		r16, TWI_STATUS_MASK
 	cpi		r16, MR_SLA_ACK
-	brne	X_SIEMPRE
+	brne		X_SIEMPRE
 
 	ser		r16
 	sts		TWDR, r16
 	ldi		r16, (1<<TWINT)|(1<<TWEN)
 	sts		TWCR, r16				; mando a LEER UN DATO y NO doy ack (TWEA=0)
-	rcall	espero_int_i2c			; para leer más de un dato se envía (1<<TWINT)|(1<<TWEN)|(1<<TWEA)
+	rcall		espero_int_i2c			; para leer más de un dato se envía (1<<TWINT)|(1<<TWEN)|(1<<TWEA)
 
 	lds		r16, TWSR
-	andi	r16, TWI_STATUS_MASK
+	andi		r16, TWI_STATUS_MASK
 	cpi		r16, MR_DATA_NACK		; al leer más de un dato se espera MR_DATA_ACK
-	brne	X_SIEMPRE
+	brne		X_SIEMPRE
 
 	lds		r16, TWDR				; LEO EL DATO (obtenido en la transacción i2c precedente)
 	sts		WHO_AM_I, r16			; salvo en variable de SRAM
@@ -129,20 +129,20 @@ sigo:
 
 	lds		r16, WHO_AM_I
 	cpi		r16, 0x68				; verifico la dirección x defecto del MPU6050
-	brne	X_SIEMPRE
+	brne		X_SIEMPRE
 
 DEBUG_OK:
 	sbi		PORTB,7					; led on (salió todo bien)
 
 X_SIEMPRE:
-	rjmp	X_SIEMPRE
+	rjmp		X_SIEMPRE
 
 ;-------------------------------------------------------------------------
 ;-------------------------------------------------------------------------
 espero_int_i2c:
 	lds		r16, TWCR
-	sbrs	r16, TWINT
-	rjmp	espero_int_i2c
+	sbrs		r16, TWINT
+	rjmp		espero_int_i2c
 	ret
 
 ;-------------------------------------------------------------------------
