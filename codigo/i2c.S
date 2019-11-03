@@ -27,7 +27,7 @@ i2c_init:
 	sts TWSR, r16
 
 	; sets bit-rate
-	ldi r16, 0x47
+	ldi r16, 0x48
 	sts TWBR, r16
 
 	; enables the TWI

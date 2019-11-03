@@ -46,8 +46,8 @@
 //    Slave Address   //
 ////////////////////////
 //
-// Slave Address in HIGH mode
-#define SLA 0x69
+// Slave Address in LOW mode (AD0=0)
+#define SLA MPU_6050_DEF_ADDR
 // Slave Address + Master mode: write
 // SLA_W
 #define SLA_W (SLA<<1 + 0)
