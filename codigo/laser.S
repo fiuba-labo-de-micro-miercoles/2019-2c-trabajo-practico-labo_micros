@@ -4,22 +4,6 @@
 #define SPACE 0x20
 #define ENTER '\n'
 
-DSEG
-
-.extern ACCEL_X_H_VAL
-.extern ACCEL_X_L_VAL
-.extern ACCEL_Y_H_VAL
-.extern ACCEL_Y_L_VAL
-.extern ACCEL_Z_H_VAL
-.extern ACCEL_Z_L_VAL
-
-.extern GYRO_X_H_VAL
-.extern GYRO_X_L_VAL
-.extern GYRO_Y_H_VAL
-.extern GYRO_Y_L_VAL
-.extern GYRO_Z_H_VAL
-.extern GYRO_Z_L_VAL
-
 CSEG
 .global setup
 setup:
