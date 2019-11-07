@@ -1,3 +1,4 @@
+#include "avrx.h"
 #include "i2c.h"
 #include "gyro.h"
 
@@ -5,6 +6,35 @@
 ;----   Get Acceleration  -----
 ;------------------------------
 
+DSEG
+
+.global ACCEL_X_H_VAL
+ACCEL_X_H_VAL: BYTE 1
+.global ACCEL_X_L_VAL
+ACCEL_X_L_VAL: BYTE 1
+.global ACCEL_Y_H_VAL
+ACCEL_Y_H_VAL: BYTE 1
+.global ACCEL_Y_L_VAL
+ACCEL_Y_L_VAL: BYTE 1
+.global ACCEL_Z_H_VAL
+ACCEL_Z_H_VAL: BYTE 1
+.global ACCEL_Z_L_VAL
+ACCEL_Z_L_VAL: BYTE 1
+
+.global GYRO_X_H_VAL
+GYRO_X_H_VAL: BYTE 1
+.global GYRO_X_L_VAL
+GYRO_X_L_VAL: BYTE 1
+.global GYRO_Y_H_VAL
+GYRO_Y_H_VAL: BYTE 1
+.global GYRO_Y_L_VAL
+GYRO_Y_L_VAL: BYTE 1
+.global GYRO_Z_H_VAL
+GYRO_Z_H_VAL: BYTE 1
+.global GYRO_Z_L_VAL
+GYRO_Z_L_VAL: BYTE 1
+
+CSEG
 .global get_acceleration
 get_acceleration:
 
@@ -17,27 +47,27 @@ get_acceleration:
 
 	ldi r17, MORE_BYTES
 	call i2c_read
-	mov ACCEL_X_H, r16
+	sts ACCEL_X_H_VAL, r16
 
 	ldi r17, MORE_BYTES
 	call i2c_read
-	mov ACCEL_X_L, r16
+	sts ACCEL_X_L_VAL, r16
 
 	ldi r17, MORE_BYTES
 	call i2c_read
-	mov ACCEL_Y_H, r16
+	sts ACCEL_Y_H_VAL, r16
 
 	ldi r17, MORE_BYTES
 	call i2c_read
-	mov ACCEL_Y_L, r16
+	sts ACCEL_Y_L_VAL, r16
 
 	ldi r17, MORE_BYTES
 	call i2c_read
-	mov ACCEL_Z_H, r16
+	sts ACCEL_Z_H_VAL, r16
 
 	ldi r17, STOP
 	call i2c_read
-	mov ACCEL_Z_L, r16
+	sts ACCEL_Z_L_VAL, r16
 
 	call i2c_end
 
@@ -59,27 +89,27 @@ get_rotation:
 
 	ldi r17, MORE_BYTES
 	call i2c_read
-	mov GYRO_X_H, r16
+	sts GYRO_X_H_VAL, r16
 
 	ldi r17, MORE_BYTES
 	call i2c_read
-	mov GYRO_X_L, r16
+	sts GYRO_X_L_VAL, r16
 
 	ldi r17, MORE_BYTES
 	call i2c_read
-	mov GYRO_Y_H, r16
+	sts GYRO_Y_H_VAL, r16
 
 	ldi r17, MORE_BYTES
 	call i2c_read
-	mov GYRO_Y_L, r16
+	sts GYRO_Y_L_VAL, r16
 
 	ldi r17, MORE_BYTES
 	call i2c_read
-	mov GYRO_Z_H, r16
+	sts GYRO_Z_H_VAL, r16
 
 	ldi r17, STOP
 	call i2c_read
-	mov GYRO_Z_L, r16
+	sts GYRO_Z_L_VAL, r16
 
 	call i2c_end
 

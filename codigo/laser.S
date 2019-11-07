@@ -4,6 +4,23 @@
 #define SPACE 0x20
 #define ENTER '\n'
 
+DSEG
+
+.extern ACCEL_X_H_VAL
+.extern ACCEL_X_L_VAL
+.extern ACCEL_Y_H_VAL
+.extern ACCEL_Y_L_VAL
+.extern ACCEL_Z_H_VAL
+.extern ACCEL_Z_L_VAL
+
+.extern GYRO_X_H_VAL
+.extern GYRO_X_L_VAL
+.extern GYRO_Y_H_VAL
+.extern GYRO_Y_L_VAL
+.extern GYRO_Z_H_VAL
+.extern GYRO_Z_L_VAL
+
+CSEG
 .global setup
 setup:
 
@@ -35,11 +52,11 @@ print_accel:
 	call get_acceleration
 
 	; X Acceleration
-	mov r16, ACCEL_X_H
+	lds r16, ACCEL_X_H_VAL
 	call serial_transmit
 	call delay_1
 
-	mov r16, ACCEL_X_L
+	lds r16, ACCEL_X_L_VAL
 	call serial_transmit
 	call delay_1
 	
@@ -48,11 +65,11 @@ print_accel:
 	call delay_1
 	
 	; Y Acceleration
-	mov r16, ACCEL_Y_H
+	lds r16, ACCEL_Y_H_VAL
 	call serial_transmit
 	call delay_1
 	
-	mov r16, ACCEL_Y_L
+	lds r16, ACCEL_Y_L_VAL
 	call serial_transmit
 	call delay_1
 
@@ -61,11 +78,11 @@ print_accel:
 	call delay_1
 
 	; Z Acceleration
-	mov r16, ACCEL_Z_H
+	lds r16, ACCEL_Z_H_VAL
 	call serial_transmit
 	call delay_1
 
-	mov r16, ACCEL_Z_L
+	lds r16, ACCEL_Z_L_VAL
 	call serial_transmit
 	call delay_1
 
@@ -84,11 +101,11 @@ print_gyro:
 	call get_rotation
 
 	; X Rotation
-	mov r16, GYRO_X_H
+	lds r16, GYRO_X_H_VAL
 	call serial_transmit
 	call delay_1
 
-	mov r16, GYRO_X_L
+	lds r16, GYRO_X_L_VAL
 	call serial_transmit
 	call delay_1
 
@@ -97,11 +114,11 @@ print_gyro:
 	call delay_1
 
 	; Y Rotation
-	mov r16, GYRO_Y_H
+	lds r16, GYRO_Y_H_VAL
 	call serial_transmit
 	call delay_1
 
-	mov r16, GYRO_Y_L
+	lds r16, GYRO_Y_L_VAL
 	call serial_transmit
 	call delay_1
 
@@ -110,11 +127,11 @@ print_gyro:
 	call delay_1
 
 	; Z Rotation
-	mov r16, GYRO_Z_H
+	lds r16, GYRO_Z_H_VAL
 	call serial_transmit
 	call delay_1
 
-	mov r16, GYRO_Z_L
+	lds r16, GYRO_Z_L_VAL
 	call serial_transmit
 	call delay_1
 
