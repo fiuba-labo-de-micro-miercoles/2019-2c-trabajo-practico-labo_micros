@@ -96,7 +96,5 @@ get_rotation:
 
 	call i2c_end
 
-	ldi GYRO_X_L, 'L'
-	
 	ret
 
