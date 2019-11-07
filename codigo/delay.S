@@ -1,6 +1,10 @@
 .global delay_1
 delay_1:
 
+push r16
+push r17
+push r18
+
         ldi r16, 60
 startLoop3:
         ldi r17, 255
@@ -16,6 +20,11 @@ outWhile2:
         dec r16
         brne startLoop3
 outWhile3:
-        ret
+
+pop r18
+pop r17
+pop r16        
+
+ret
 
 

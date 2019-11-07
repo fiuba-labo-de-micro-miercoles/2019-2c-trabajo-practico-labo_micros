@@ -138,15 +138,8 @@ i2c_connect:
 
 	ret
 
-;*****************
-;**  READ Byte  **
-;*****************
-;
-;----- void i2c_read(more);
-;---------- more: r17
-;
-.global i2c_read
-i2c_read:
+.global i2c_init_read
+i2c_init_read:
 	; loads slave address in read mode
 	ldi r16, SLA_R
 	sts TWDR, r16
@@ -168,6 +161,18 @@ i2c_read:
 	; to read data from it
 	ser r16
 	sts TWDR, r16
+
+	ret
+
+;*****************
+;**  READ Byte  **
+;*****************
+;
+;----- void i2c_read(more);
+;---------- more: r17
+;
+.global i2c_read
+i2c_read:
 
 	;*********************************
 	; Send ACK or NACK, and wait
@@ -245,6 +250,8 @@ check_connection:
 	;**************************************
 	;**  Reads the Slave default Address **
 	;**************************************
+
+	call i2c_init_read
 
 	; reads the byte
 	call i2c_read
