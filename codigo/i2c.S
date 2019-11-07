@@ -138,6 +138,10 @@ i2c_connect:
 
 	ret
 
+;*****************
+;**  READ Byte  **
+;*****************
+;
 .global i2c_init_read
 i2c_init_read:
 	; loads slave address in read mode
@@ -164,10 +168,6 @@ i2c_init_read:
 
 	ret
 
-;*****************
-;**  READ Byte  **
-;*****************
-;
 ;----- void i2c_read(more);
 ;---------- more: r17
 ;
