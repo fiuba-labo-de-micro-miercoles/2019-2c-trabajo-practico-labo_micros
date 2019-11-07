@@ -8,13 +8,6 @@
 .global get_acceleration
 get_acceleration:
 
-	ldi ACCEL_X_H, 'A'
-	ldi ACCEL_X_L, 'B'
-	ldi ACCEL_Y_H, 'C'
-	ldi ACCEL_Y_L, 'D'
-	ldi ACCEL_Z_H, 'E'
-	ldi ACCEL_Z_L, 'F'
-
 	call i2c_start
 
 	ldi r16, ACCEL_ADDR
@@ -56,13 +49,6 @@ get_acceleration:
 
 .global get_rotation
 get_rotation:
-
-	ldi GYRO_X_H, 'A'
-	ldi GYRO_X_L, 'B'
-	ldi GYRO_Y_H, 'C'
-	ldi GYRO_Y_L, 'D'
-	ldi GYRO_Z_H, 'E'
-	ldi GYRO_Z_L, 'F'
 
 	call i2c_start
 
