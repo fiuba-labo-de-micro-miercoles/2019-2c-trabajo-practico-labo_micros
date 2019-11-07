@@ -1,11 +1,6 @@
 #ifndef GYRO_H
 #define GYRO_H
 
-// More bytes
-#define MORE_BYTES 0x1
-// Stop: no more bytes needed
-#define STOP 0x0
-
 // Acceleration Address register
 // to start reading
 #define ACCEL_ADDR 0x3B

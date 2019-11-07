@@ -1,6 +1,11 @@
 #ifndef I2C_H
 #define I2C_H
 
+// More bytes
+#define MORE_BYTES 0x1
+// Stop: no more bytes needed
+#define STOP 0x0
+
 // Default MPU 6050 address
 #define MPU_6050_DEF_ADDR 0x68
 

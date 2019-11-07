@@ -254,6 +254,7 @@ check_connection:
 	call i2c_init_read
 
 	; reads the byte
+	ldi r17, STOP
 	call i2c_read
 
 	sts WHO_AM_I_ADDR, r16
