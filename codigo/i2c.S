@@ -243,6 +243,13 @@ i2c_end:
 	ldi r16, (1<<TWINT)|(1<<TWSTO)|(1<<TWEN)
 	sts TWCR, r16
 
+	; waits for STOP condition
+	; to be executed
+wait_stop:
+	lds r16, TWCR
+	andi r16, (1<<TWSTO)
+	brne wait_stop
+
 	ret
 
 ;************************
