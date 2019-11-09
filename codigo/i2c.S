@@ -195,7 +195,8 @@ i2c_read:
 	call wait_int_i2c
 
 	; check TWI status register
-	; to verify DATA sent with ACK returned,
+	; to verify DATA received
+	; with ACK returned,
 	; goto error otherwise
 	lds r16, TWSR
 	andi r16, STAT_CODE_MASK
@@ -213,7 +214,8 @@ stop_read:
 	call wait_int_i2c
 
 	; check TWI status register
-	; to verify DATA sent without ACK returned,
+	; to verify DATA received
+	; without ACK returned,
 	; goto error otherwise
 	lds r16, TWSR
 	andi r16, STAT_CODE_MASK
