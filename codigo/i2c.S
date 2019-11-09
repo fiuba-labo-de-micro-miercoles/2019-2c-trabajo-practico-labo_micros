@@ -144,6 +144,7 @@ i2c_connect:
 ;
 .global i2c_init_read
 i2c_init_read:
+
 	; loads slave address in read mode
 	ldi r16, SLA_R
 	sts TWDR, r16
@@ -161,11 +162,6 @@ i2c_init_read:
 	cpi r16, SLA_R_ACK
 	call check_error
 
-	; sends "signal" to slave
-	; to read data from it
-	ser r16
-	sts TWDR, r16
-
 	ret
 
 ;----- void i2c_read(more);
@@ -173,6 +169,11 @@ i2c_init_read:
 ;
 .global i2c_read
 i2c_read:
+	
+	; sends "signal" to slave
+	; to read data from it
+	ser r16
+	sts TWDR, r16
 
 	;*********************************
 	; Send ACK or NACK, and wait
@@ -235,6 +236,7 @@ finish_read:
 ;
 .global i2c_end
 i2c_end:
+
 	; sends STOP signal
 	ldi r16, (1<<TWINT)|(1<<TWSTO)|(1<<TWEN)
 	sts TWCR, r16
