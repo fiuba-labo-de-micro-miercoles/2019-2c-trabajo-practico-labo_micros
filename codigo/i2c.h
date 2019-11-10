@@ -1,6 +1,11 @@
 #ifndef I2C_H
 #define I2C_H
 
+// Enable sensor register
+#define PWR_MGMT_1_RA 0x6B
+// Who Am I? register
+#define WHO_AM_I_RA 0x75
+
 // More bytes
 #define MORE_BYTES 0x1
 // Stop: no more bytes needed

@@ -38,12 +38,19 @@ i2c_init:
 	call i2c_start
 
 	; reads from WHO_AM_I
-	; register: 0x75
-	ldi r16, 0x75
+	; register
+	ldi r16, WHO_AM_I_RA
 	call i2c_connect
 
 	; check WHO_AM_I
+	; received value
 	call check_connection
+
+	; enables the sensor
+	; by writing the SLEEP-MODE
+	; bit (put a zero)
+	; into the PWR_MGMT_1 register
+	call enable_sensor
 
 	ret
 
@@ -256,11 +263,62 @@ wait_stop:
 ;** Auxiliar Functions **
 ;************************
 
-check_connection:
+;***********************************
+;   Enables Sensors by clearing   **
+;     the SLEEP-MODE default      **
+;***********************************
+;
+enable_sensor:
 
-	;**************************************
-	;**  Reads the Slave default Address **
-	;**************************************
+	call i2c_start
+
+	; register address comes
+	; in r16
+	ldi r16, PWR_MGMT_1_RA
+	sts TWDR, r16
+	ldi r16, (1<<TWINT)|(1<<TWEN)
+	sts TWCR, r16
+
+	; waits TWINT flag set
+	call wait_int_i2c
+
+	; check TWI status register
+	; to verify DATA ACK received,
+	; goto error otherwise
+	lds r16, TWSR
+	andi r16, STAT_CODE_MASK
+	cpi r16, DATA_SEND_ACK
+	call check_error
+
+	; sends a zero to clear all
+	; the bits in that register
+	; to make sure that SLEEP-MODE
+	; bit is zero
+	clr r16
+	sts TWDR, r16
+	ldi r16, (1<<TWINT)|(1<<TWEN)
+	sts TWCR, r16
+
+	; waits TWINT flag set
+	call wait_int_i2c
+
+	; check TWI status register
+	; to verify DATA ACK received,
+	; goto error otherwise
+	lds r16, TWSR
+	andi r16, STAT_CODE_MASK
+	cpi r16, DATA_SEND_ACK
+	call check_error
+
+	call i2c_end
+
+	ret
+
+;***********************************
+;   Verify Slave default Address  **
+;***********************************
+;
+check_connection:
 
 	call i2c_init_read
 
@@ -280,6 +338,10 @@ check_connection:
 
 	ret
 
+;************************************
+;  Loops until TWINT flag is set   **
+;************************************
+;
 wait_int_i2c:
 	lds r16, TWCR
 	sbrs r16, TWINT
