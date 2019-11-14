@@ -33,10 +33,10 @@ $(EXEC).elf: $(OBJFILES)
 	$(AVRHEX) $(AVRHEXFLAGS) $^ $@
 
 gdb: $(EXEC).elf
-	avr-gdb -q -s $< -ex 'target remote 127.0.0.1:1234' -n -x .gdbinit
+	avr-gdb -q -s $< -ex 'target remote 127.0.0.1:1234' 
 
 gdb-sim: $(EXEC).hex
-	simavr -f $(FREQ) -m $(DEVICE) $< --gdb
+	simavr -f $(FREQ) -m $(DEVICE) $< -gdb
 
 upload: all
 	$(AVRDUDE) $(AVRDUDEFLAGS) -U flash:w:$(HEX):i
