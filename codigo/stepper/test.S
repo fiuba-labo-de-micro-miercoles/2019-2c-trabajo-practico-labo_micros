@@ -15,9 +15,6 @@ ROT_TABLE: DB (1<<PIN_6), (1<<PIN_7), (1<<PIN_8), (1<<PIN_9)
 
 .global setup
 setup:
-
-	call serial_init
-
 	; config 2,3,4,5 digital pins
 	; mapping:
 	;  - pin 6: PORTH[3]
@@ -51,6 +48,11 @@ loop:
 
 	ret
 
+;-------------------------------
+;
+;   void rotate_loop(bool dir);
+; 	dir: r18
+;
 rotate_loop:
 	; max iteration
 	ldi r17, 0xFF
