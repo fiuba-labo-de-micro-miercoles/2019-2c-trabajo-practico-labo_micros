@@ -27,14 +27,14 @@ outWhile3:
 
 	ret
 
-.global mili_delay_2
-mili_delay_2:
+.global mili_delay_1
+mili_delay_1:
 
 	push r16
 	push r17
 	push r18
 
-        ldi r16, 3
+        ldi r16, 2
 startLoop3m:
         ldi r17, 51
 startLoop2m:

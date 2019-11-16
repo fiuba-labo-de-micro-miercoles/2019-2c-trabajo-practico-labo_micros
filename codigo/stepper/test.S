@@ -6,12 +6,14 @@
 #define PIN_2 5
 #define PIN_3 6
 
+#define MAX_SEQ 8
+
 DSEG
 STEP_NUM: BYTE 1
 
 CSEG
 
-ROT_TABLE: DB (1<<PIN_0), (1<<PIN_1), (1<<PIN_2), (1<<PIN_3)
+ROT_TABLE: DB 0x08, 0x18, 0x10, 0x30, 0x20, 0x60, 0x40, 0x48
 
 .global setup
 setup:
@@ -39,30 +41,44 @@ loop:
 	; and the other in CCW mode
 	
 	ldi r18, CW_MODE
-	rcall rotate_loop
+	ldi r19, LOW(STEPS_PER_REV_HALF)
+	ldi r20, HIGH(STEPS_PER_REV_HALF)
+	rcall move
 	call delay_1
 
 	ldi r18, CCW_MODE
-	rcall rotate_loop 
+	ldi r19, LOW(STEPS_PER_REV_HALF)
+	ldi r20, HIGH(STEPS_PER_REV_HALF)
+	rcall move
 	call delay_1
 
 	ret
 
-;-------------------------------
+;----------------------------------------
+;--- moves 'steps' in 'dir' direction ---
+;----------------------------------------
 ;
-;   void rotate_loop(bool dir);
+;   void move(uint8_t dir, uint16_t steps);
 ; 	dir: r18
+; 	steps: r20:r19
 ;
-rotate_loop:
+move:
+	push r26
+	push r27
+
 	; max iteration
-	ldi r17, 0xFF
+	mov r26, r19
+	mov r27, r20 
 
 forloop:
 	rcall one_step
-	call mili_delay_2
+	call mili_delay_1
 
-	dec r17
+	sbiw r26, 0x1
 	brne forloop
+
+	pop r27
+	pop r26
 
 	ret
 
@@ -70,11 +86,12 @@ forloop:
 ;--- make one step of the motor ---
 ;----------------------------------
 ;
-;   void one_step(bool dir);
+;   void one_step(uint8_t dir);
 ; 	dir: r18
 ;
 one_step:
 
+	push r16
 	push r17
 
 	lds r17, STEP_NUM
@@ -88,7 +105,7 @@ one_step:
 
 ccw_rot:
 
-	ldi r16, 0x03
+	ldi r16, MAX_SEQ-1
 	sub r16, r17
 
 finish:
@@ -106,11 +123,12 @@ finish:
 
 	inc r17
 
-	andi r17, 0x03
+	andi r17, MAX_SEQ-1
 
 	sts STEP_NUM, r17
 	
 	pop r17
+	pop r16
 
 	ret
 
