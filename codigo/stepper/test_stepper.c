@@ -8,7 +8,6 @@
 #include "stepper.h"
 
 #define MAX 8
-#define MAX_ITER 256
 
 #define CW_MODE 0x1
 #define CCW_MODE 0x0
@@ -36,10 +35,10 @@ void setup(void) {
 	STEP_NUM = 0;
 }
 
-void one_step(unsigned char mode) {
+void one_step(uint8_t mode) {
 
-	unsigned char byte;
-	unsigned char idx, step;
+	uint8_t byte;
+	uint8_t idx, step;
 
 	step = STEP_NUM;
 
@@ -60,9 +59,9 @@ void one_step(unsigned char mode) {
 	STEP_NUM = step;
 }
 
-void move(unsigned char mode) {
+void move(uint8_t mode, unsigned int steps) {
 
-	for (int i = 0; i < MAX_ITER; i++) {
+	for (int i = 0; i < steps; i++) {
 		one_step(mode);
 		_delay_ms(1);
 	}
@@ -70,24 +69,10 @@ void move(unsigned char mode) {
 
 void loop(void) {
 
-	move(CW_MODE);
-	move(CW_MODE);
-	move(CW_MODE);
-	move(CW_MODE);
-	move(CW_MODE);
-	move(CW_MODE);
-	move(CW_MODE);
-	move(CW_MODE);
+	move(CW_MODE, STEPS_PER_REV_HALF);
 	_delay_ms(1000);
 
-	move(CCW_MODE);
-	move(CCW_MODE);
-	move(CCW_MODE);
-	move(CCW_MODE);
-	move(CCW_MODE);
-	move(CCW_MODE);
-	move(CCW_MODE);
-	move(CCW_MODE);
+	move(CCW_MODE, STEPS_PER_REV_HALF);
 	_delay_ms(1000);
 }
 
