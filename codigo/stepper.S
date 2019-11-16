@@ -1,22 +1,27 @@
 #include "avrx.h"
 #include "stepper.h"
 
-#define PIN_0 3
-#define PIN_1 4
-#define PIN_2 5
-#define PIN_3 6
-
 #define MAX_SEQ 8
+
+;-----------------------------------
+;--- 28BYJ-48 5V - Stepper motor ---
+;-----------------------------------
 
 DSEG
 STEP_NUM: BYTE 1
 
 CSEG
-
 ROT_TABLE: DB 0x08, 0x18, 0x10, 0x30, 0x20, 0x60, 0x40, 0x48
 
-.global setup
-setup:
+;---------------------------
+;-----   INITIALIZE   ------
+;---------------------------
+;
+;--- void stepper_init(void);
+;
+.global stepper_init
+stepper_init:
+
 	; config digital pins
 	; mapping:
 	;  - IN1 -> pin 9: PORTH[6]
@@ -33,36 +38,17 @@ setup:
 
 	ret
 
-.global loop
-loop:
-
-	; runs two loops:
-	; one in the CW mode,
-	; and the other in CCW mode
-	
-	ldi r18, CW_MODE
-	ldi r19, LOW(STEPS_PER_REV_HALF)
-	ldi r20, HIGH(STEPS_PER_REV_HALF)
-	rcall move
-	call delay_1
-
-	ldi r18, CCW_MODE
-	ldi r19, LOW(STEPS_PER_REV_HALF)
-	ldi r20, HIGH(STEPS_PER_REV_HALF)
-	rcall move
-	call delay_1
-
-	ret
-
 ;----------------------------------------
 ;--- moves 'steps' in 'dir' direction ---
 ;----------------------------------------
 ;
-;   void move(uint8_t dir, uint16_t steps);
+;   void stepper_move(uint8_t dir, uint16_t steps);
 ; 	dir: r18
 ; 	steps: r20:r19
 ;
-move:
+.global stepper_move
+stepper_move:
+
 	push r26
 	push r27
 

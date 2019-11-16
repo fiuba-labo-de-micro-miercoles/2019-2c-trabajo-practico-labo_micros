@@ -5,7 +5,12 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
-#include "stepper.h"
+// Steps
+#define STEPS_PER_REV 4096
+#define STEPS_PER_REV_HALF 2048
+#define STEPS_PER_REV_QUAR 1024
+#define STEPS_PER_REV_OCTA 512
+#define STEPS_PER_REV_SIXT 256
 
 #define MAX 8
 
