@@ -15,12 +15,12 @@ ROT_TABLE: DB (1<<PIN_0), (1<<PIN_1), (1<<PIN_2), (1<<PIN_3)
 
 .global setup
 setup:
-	; config 2,3,4,5 digital pins
+	; config digital pins
 	; mapping:
-	;  - IN1 -> pin 6: PORTH[3]
-	;  - IN2 -> pin 7: PORTH[4]
-	;  - IN3 -> pin 8: PORTH[5]
-	;  - IN4 -> pin 9: PORTH[6]
+	;  - IN1 -> pin 9: PORTH[6]
+	;  - IN2 -> pin 8: PORTH[5]
+	;  - IN3 -> pin 7: PORTH[4]
+	;  - IN4 -> pin 6: PORTH[3]
 	; in output mode
 
 	ldi r16, (1<<PIN_0)|(1<<PIN_1)|(1<<PIN_2)|(1<<PIN_3)
