@@ -34,11 +34,11 @@ mili_delay_2:
 	push r17
 	push r18
 
-        ldi r16, 30
+        ldi r16, 3
 startLoop3m:
-        ldi r17, 1
+        ldi r17, 51
 startLoop2m:
-        ldi r18, 255
+        ldi r18, 51
 startLoop1m:
         dec r18
         brne startLoop1m

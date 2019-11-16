@@ -1,29 +1,29 @@
 #include "avrx.h"
 #include "stepper.h"
 
-#define PIN_6 3
-#define PIN_7 4
-#define PIN_8 5
-#define PIN_9 6
+#define PIN_0 3
+#define PIN_1 4
+#define PIN_2 5
+#define PIN_3 6
 
 DSEG
 STEP_NUM: BYTE 1
 
 CSEG
 
-ROT_TABLE: DB (1<<PIN_6), (1<<PIN_7), (1<<PIN_8), (1<<PIN_9)
+ROT_TABLE: DB (1<<PIN_0), (1<<PIN_1), (1<<PIN_2), (1<<PIN_3)
 
 .global setup
 setup:
 	; config 2,3,4,5 digital pins
 	; mapping:
-	;  - pin 6: PORTH[3]
-	;  - pin 7: PORTH[4]
-	;  - pin 8: PORTH[5]
-	;  - pin 9: PORTH[6]
+	;  - IN1 -> pin 6: PORTH[3]
+	;  - IN2 -> pin 7: PORTH[4]
+	;  - IN3 -> pin 8: PORTH[5]
+	;  - IN4 -> pin 9: PORTH[6]
 	; in output mode
 
-	ldi r16, (1<<PIN_6)|(1<<PIN_7)|(1<<PIN_8)|(1<<PIN_9)
+	ldi r16, (1<<PIN_0)|(1<<PIN_1)|(1<<PIN_2)|(1<<PIN_3)
 	sts DDRH, r16
 
 	ldi r16, 0x0
@@ -38,11 +38,11 @@ loop:
 	; one in the CW mode,
 	; and the other in CCW mode
 	
-	ldi r18, 0x1
+	ldi r18, CW_MODE
 	rcall rotate_loop
 	call delay_1
 
-	ldi r18, 0x0
+	ldi r18, CCW_MODE
 	rcall rotate_loop 
 	call delay_1
 
