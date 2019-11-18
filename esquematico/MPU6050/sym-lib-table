@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name MPU6050)(type Legacy)(uri ${KIPRJMOD}/MPU6050.lib)(options "")(descr ""))
+)

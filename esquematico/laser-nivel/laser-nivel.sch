@@ -5,10 +5,10 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
+Title "Laser Nivel"
 Date "mar. 31 mars 2015"
 Rev ""
-Comp ""
+Comp "FIUBA"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -33,24 +33,6 @@ Text Label 8900 2950 0    60   ~ 0
 A5
 Text Label 8900 3050 0    60   ~ 0
 A6
-Text Label 8900 3150 0    60   ~ 0
-A7
-Text Label 8900 3400 0    60   ~ 0
-A8
-Text Label 8900 3500 0    60   ~ 0
-A9
-Text Label 8900 3600 0    60   ~ 0
-A10
-Text Label 8900 3700 0    60   ~ 0
-A11
-Text Label 8900 3800 0    60   ~ 0
-A12
-Text Label 8900 3900 0    60   ~ 0
-A13
-Text Label 8900 4000 0    60   ~ 0
-A14
-Text Label 8900 4100 0    60   ~ 0
-A15
 Text Label 10500 4650 1    60   ~ 0
 22
 Text Label 10400 4650 1    60   ~ 0
@@ -117,14 +99,6 @@ Text Label 9000 5750 1    60   ~ 0
 53(SS)
 Text Label 10400 4100 0    60   ~ 0
 21(SCL)
-Text Label 10400 4000 0    60   ~ 0
-20(SDA)
-Text Label 10400 3900 0    60   ~ 0
-19(Rx1)
-Text Label 10400 3800 0    60   ~ 0
-18(Tx1)
-Text Label 10400 3700 0    60   ~ 0
-17(Rx2)
 Text Label 10400 3600 0    60   ~ 0
 16(Tx2)
 Text Label 10400 3500 0    60   ~ 0
@@ -312,17 +286,6 @@ F 3 "" H 10250 2150 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L laser-nivel-rescue:Conn_01x08-Connector_Generic P3
-U 1 1 56D72F1C
-P 9550 2750
-F 0 "P3" H 9550 3150 50  0000 C CNN
-F 1 "Analog" V 9650 2750 50  0000 C CNN
-F 2 "Socket_Arduino_Mega:Socket_Strip_Arduino_1x08" H 9550 2750 50  0001 C CNN
-F 3 "" H 9550 2750 50  0000 C CNN
-	1    9550 2750
-	1    0    0    -1  
-$EndComp
-$Comp
 L laser-nivel-rescue:Conn_01x08-Connector_Generic P6
 U 1 1 56D734D0
 P 9950 2750
@@ -331,28 +294,6 @@ F 1 "PWM" V 10050 2750 50  0000 C CNN
 F 2 "Socket_Arduino_Mega:Socket_Strip_Arduino_1x08" H 9950 2750 50  0001 C CNN
 F 3 "" H 9950 2750 50  0000 C CNN
 	1    9950 2750
-	-1   0    0    -1  
-$EndComp
-$Comp
-L laser-nivel-rescue:Conn_01x08-Connector_Generic P4
-U 1 1 56D73A0E
-P 9550 3700
-F 0 "P4" H 9550 4100 50  0000 C CNN
-F 1 "Analog" V 9650 3700 50  0000 C CNN
-F 2 "Socket_Arduino_Mega:Socket_Strip_Arduino_1x08" H 9550 3700 50  0001 C CNN
-F 3 "" H 9550 3700 50  0000 C CNN
-	1    9550 3700
-	1    0    0    -1  
-$EndComp
-$Comp
-L laser-nivel-rescue:Conn_01x08-Connector_Generic P7
-U 1 1 56D73F2C
-P 9950 3700
-F 0 "P7" H 9950 4100 50  0000 C CNN
-F 1 "Communication" V 10050 3700 50  0000 C CNN
-F 2 "Socket_Arduino_Mega:Socket_Strip_Arduino_1x08" H 9950 3700 50  0001 C CNN
-F 3 "" H 9950 3700 50  0000 C CNN
-	1    9950 3700
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -438,8 +379,6 @@ Wire Wire Line
 Wire Wire Line
 	9350 3050 8900 3050
 Wire Wire Line
-	8900 3150 9350 3150
-Wire Wire Line
 	10400 2450 10150 2450
 Wire Wire Line
 	10150 2550 10400 2550
@@ -456,35 +395,11 @@ Wire Wire Line
 Wire Wire Line
 	10150 3150 10400 3150
 Wire Wire Line
-	9350 3400 8900 3400
-Wire Wire Line
-	8900 3500 9350 3500
-Wire Wire Line
-	9350 3600 8900 3600
-Wire Wire Line
-	8900 3700 9350 3700
-Wire Wire Line
-	9350 3800 8900 3800
-Wire Wire Line
-	8900 3900 9350 3900
-Wire Wire Line
-	9350 4000 8900 4000
-Wire Wire Line
-	8900 4100 9350 4100
-Wire Wire Line
 	10400 3400 10150 3400
 Wire Wire Line
 	10150 3500 10400 3500
 Wire Wire Line
 	10400 3600 10150 3600
-Wire Wire Line
-	10150 3700 10400 3700
-Wire Wire Line
-	10400 3800 10150 3800
-Wire Wire Line
-	10150 3900 10400 3900
-Wire Wire Line
-	10400 4000 10150 4000
 Wire Wire Line
 	10150 4100 10400 4100
 Wire Wire Line
@@ -593,6 +508,91 @@ Wire Wire Line
 	8650 5350 8650 5750
 Wire Notes Line
 	11200 6050 8350 6050
+Wire Wire Line
+	8900 4100 9350 4100
+Wire Wire Line
+	9350 3600 8900 3600
+Wire Wire Line
+	8900 3500 9350 3500
+Wire Wire Line
+	9350 3400 8900 3400
+Wire Wire Line
+	8900 3150 9350 3150
+$Comp
+L laser-nivel-rescue:Conn_01x08-Connector_Generic P3
+U 1 1 56D72F1C
+P 9550 2750
+F 0 "P3" H 9550 3150 50  0000 C CNN
+F 1 "Analog" V 9650 2750 50  0000 C CNN
+F 2 "Socket_Arduino_Mega:Socket_Strip_Arduino_1x08" H 9550 2750 50  0001 C CNN
+F 3 "" H 9550 2750 50  0000 C CNN
+	1    9550 2750
+	1    0    0    -1  
+$EndComp
+Text Label 8900 4100 0    60   ~ 0
+A15
+Text Label 8900 3600 0    60   ~ 0
+A10
+Text Label 8900 3500 0    60   ~ 0
+A9
+Text Label 8900 3400 0    60   ~ 0
+A8
+Text Label 8900 3150 0    60   ~ 0
+A7
+Text Label 8900 3700 0    60   ~ 0
+A11
+Text Label 8900 3800 0    60   ~ 0
+A12
+Text Label 8900 3900 0    60   ~ 0
+A13
+Text Label 8900 4000 0    60   ~ 0
+A14
+$Comp
+L laser-nivel-rescue:Conn_01x08-Connector_Generic P4
+U 1 1 56D73A0E
+P 9550 3700
+F 0 "P4" H 9550 4100 50  0000 C CNN
+F 1 "Analog" V 9650 3700 50  0000 C CNN
+F 2 "Socket_Arduino_Mega:Socket_Strip_Arduino_1x08" H 9550 3700 50  0001 C CNN
+F 3 "" H 9550 3700 50  0000 C CNN
+	1    9550 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8900 3700 9350 3700
+Wire Wire Line
+	9350 3800 8900 3800
+Wire Wire Line
+	8900 3900 9350 3900
+Wire Wire Line
+	9350 4000 8900 4000
 Wire Notes Line
 	8350 6050 8350 500 
+Wire Wire Line
+	10400 4000 10150 4000
+Wire Wire Line
+	10150 3900 10400 3900
+Wire Wire Line
+	10400 3800 10150 3800
+Wire Wire Line
+	10150 3700 10400 3700
+$Comp
+L laser-nivel-rescue:Conn_01x08-Connector_Generic P7
+U 1 1 56D73F2C
+P 9950 3700
+F 0 "P7" H 9950 4100 50  0000 C CNN
+F 1 "Communication" V 10050 3700 50  0000 C CNN
+F 2 "Socket_Arduino_Mega:Socket_Strip_Arduino_1x08" H 9950 3700 50  0001 C CNN
+F 3 "" H 9950 3700 50  0000 C CNN
+	1    9950 3700
+	-1   0    0    -1  
+$EndComp
+Text Label 10400 3700 0    60   ~ 0
+17(Rx2)
+Text Label 10400 3800 0    60   ~ 0
+18(Tx1)
+Text Label 10400 3900 0    60   ~ 0
+19(Rx1)
+Text Label 10400 4000 0    60   ~ 0
+20(SDA)
 $EndSCHEMATC
