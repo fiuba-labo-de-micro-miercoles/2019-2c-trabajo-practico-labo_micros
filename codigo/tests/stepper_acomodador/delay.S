@@ -56,33 +56,3 @@ outWhile3m:
 
 	ret
 
-
-.global mili_delay_100
-mili_delay_100:
-
-	push r16
-	push r17
-	push r18
-
-        ldi r16, 200
-startLoop3m100:
-        ldi r17, 51
-startLoop2m100:
-        ldi r18, 51
-startLoop1m100:
-        dec r18
-        brne startLoop1m
-outWhile1m100:        
-        dec r17
-        brne startLoop2m
-outWhile2m100:
-        dec r16
-        brne startLoop3m
-outWhile3m100:
-
-	pop r18
-	pop r17
-	pop r16
-
-	ret
-

@@ -2,8 +2,9 @@
 #include "gyro.h"
 #include "stepper.h"
 
-#define SPACE 0x20
-#define ENTER '\n'
+#define STEPS_IN_BURST 16
+#define THRESHOLD_ACCEL_POSITIVE 300
+#define THRESHOLD_ACCEL_NEGATIVE -300
 
 CSEG
 .global setup
@@ -12,26 +13,46 @@ setup:
 	call serial_init
 	call i2c_init
 	call stepper_init
-
+	ldi r19, LOW(STEPS_IN_BURST)
+	ldi r20, HIGH(STEPS_IN_BURST)
 	ret
 
 .global loop
 loop:
-	ldi r19, LOW(STEPS_PER_REV_HALF/2)
-	ldi r20, HIGH(STEPS_PER_REV_HALF/2)
+
 	call get_acceleration
-	lds r16, ACCEL_X_H_VAL
-	tst r16
-	brpl positive; es positivo
-	call turn_left
+	
+	lds r16, ACCEL_X_L_VAL
+	lds r17, ACCEL_X_H_VAL
+
+
+	; comparacion de mayor threshold mayor
+	ldi r21, LOW(THRESHOLD_ACCEL_POSITIVE)
+	ldi r22, HIGH(THRESHOLD_ACCEL_POSITIVE)
+	sub r21, r16
+	sbc r22, r17
+	; si es mayor que el threshold i.e. el threshold es menor que la acel
+	brlt turn_cw ; ir a girar sentido horario
+
+	; sino comparacion de mayorthreshold menor
+	ldi r21, LOW(THRESHOLD_ACCEL_NEGATIVE)
+	ldi r22, HIGH(THRESHOLD_ACCEL_NEGATIVE)
+	sub r21, r16
+	sbc r22, r17
+	; si es mayor que el threshold i.e. el threshold es menor que la acel
+	brlt finish_loop; ir al fin
+
+	; sino girar a la izquierda
+	ldi r18, 1
+	call stepper_move
+
 	rjmp finish_loop
-positive:
-	call turn_right
+turn_cw:
+	ldi r18, 0
+	call stepper_move
 finish_loop:
-	call mili_delay_1
-	ldi r16, SPACE
-	call serial_transmit
-	call delay_1
+
+	call mili_delay_100
 	ret
 
 ;**************
@@ -44,13 +65,11 @@ finish_loop:
 turn_left:
 	ldi r16, 'l'
 	call serial_transmit
-	ldi r18, 0
+	ldi r18, 1
 	call stepper_move
 	ret
 
 turn_right:
 	ldi r16, 'r'
 	call serial_transmit
-	ldi r18, 1
-	call stepper_move
 	ret
