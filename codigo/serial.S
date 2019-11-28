@@ -29,7 +29,6 @@ serial_transmit:
 
 	ret
 
-
 .global serial_transmit_hex
 serial_transmit_hex:
 	push r18

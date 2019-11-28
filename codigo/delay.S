@@ -1,3 +1,15 @@
+
+/********************************/
+/*     Delay util functions     */
+/********************************/
+
+;----------------------------------;
+; Description:                     ;
+;   - makes a 'delay' of 1 second  ;
+;                                  ;
+; void delay_1(void);              ;
+;----------------------------------;
+
 .global delay_1
 delay_1:
 
@@ -26,6 +38,13 @@ outWhile3:
 	pop r16
 
 	ret
+
+;---------------------------------------;
+; Description:                          ;
+;   - makes a 'delay' of 1 mili second  ;
+;                                       ;
+; void mili_delay_1(void);              ;
+;---------------------------------------;
 
 .global mili_delay_1
 mili_delay_1:
@@ -56,6 +75,12 @@ outWhile3m:
 
 	ret
 
+;-----------------------------------------;
+; Description:                            ;
+;   - makes a 'delay' of 100 mili second  ;
+;                                         ;
+; void mili_delay_100(void);              ;
+;-----------------------------------------;
 
 .global mili_delay_100
 mili_delay_100:

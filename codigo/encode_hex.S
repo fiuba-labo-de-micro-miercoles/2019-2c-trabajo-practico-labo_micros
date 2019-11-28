@@ -1,16 +1,26 @@
 #include "avrx.h"
 
+/*************************/
+/*     HEX encodeer      */
+/*************************/
+
 CSEG
+
 HEX_ENCODING: DB '0','1','2','3','4','5', '6','7','8','9','a','b','c','d','e','f'
 
-;---------------------------------;
-; Encodes a single byte to a hex
-; ascii digit
-; Input: r16 - byte to encode
-; Output: r16 - byte encoded
-;---------------------------------;
+;-------------------------------------;
+; Description:                        ;
+;   - Encodes a single byte to a hex  ;
+;     ascii digit                     ;
+;                                     ;
+; uint8_t encode_hex(uint8_t num);    ;
+; 	num: r16 - byte to encode     ;
+; 	output: r16 - byte encoded    ;
+;-------------------------------------;
+
 .global encode_hex
 encode_hex:
+
     push ZH
     push ZL
     push r17
@@ -31,3 +41,4 @@ encode_hex:
     pop ZH
 
     ret
+
