@@ -21,10 +21,10 @@ HEX_ENCODING: DB '0','1','2','3','4','5', '6','7','8','9','a','b','c','d','e','f
 .global encode_hex
 encode_hex:
 
-    push ZH
-    push ZL
-    push r17
-    push r0
+	push ZH
+	push ZL
+	push r17
+	push r0
 
 	ldi ZH, HIGH(HEX_ENCODING)
 	ldi ZL, LOW(HEX_ENCODING)
@@ -34,11 +34,11 @@ encode_hex:
 	adc ZH, r0
 
 	lpm r16, Z
-    
-    pop r0
-    pop r17
-    pop ZL
-    pop ZH
 
-    ret
+	pop r0
+	pop r17
+	pop ZL
+	pop ZH
+
+	ret
 

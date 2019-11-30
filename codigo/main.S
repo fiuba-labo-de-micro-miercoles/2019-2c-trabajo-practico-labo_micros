@@ -2,7 +2,9 @@
 
 CSEG
 	rjmp main
+
 ORG _VECTORS_SIZE
+
 .global main
 main:
 	; initialize the stack

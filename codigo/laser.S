@@ -1,6 +1,4 @@
 #include "avrx.h"
-#include "gyro.h"
-#include "stepper.h"
 
 #define STEPS_IN_BURST 16
 #define THRESHOLD_ACCEL_POSITIVE 300
@@ -10,6 +8,11 @@
 #define ONLY_OVERFLOW   0b00000001
 
 CSEG
+
+/*******************/
+/*      SETUP      */
+/*******************/
+
 .global setup
 setup:
 
@@ -30,6 +33,10 @@ setup:
 	sei ; enable interruptions
 
 	ret 
+
+/********************/
+/*       LOOP       */
+/********************/
 
 .global loop
 loop:
@@ -58,7 +65,6 @@ TIMER1_OVF_vect:
 	lds r16, ACCEL_X_L_VAL
 	lds r17, ACCEL_X_H_VAL
 
-
 	; comparacion de mayor threshold mayor
 	ldi r21, LOW(THRESHOLD_ACCEL_POSITIVE)
 	ldi r22, HIGH(THRESHOLD_ACCEL_POSITIVE)
@@ -80,9 +86,12 @@ TIMER1_OVF_vect:
 	call stepper_move
 
 	rjmp finish_loop
+
 turn_cw:
+
 	ldi r18, 0
 	call stepper_move
+
 finish_loop:
 
 	pop r22

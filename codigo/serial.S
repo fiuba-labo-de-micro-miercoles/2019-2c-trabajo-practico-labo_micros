@@ -1,6 +1,10 @@
 #include "avrx.h"
 #include "serial.h"
 
+/******************************/
+/*       Serial Protocol      */
+/******************************/
+
 .global serial_init
 serial_init:
 
