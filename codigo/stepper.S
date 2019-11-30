@@ -1,8 +1,6 @@
 #include "avrx.h"
 #include "stepper.h"
 
-#define MAX_SEQ 8
-
 /************************************/
 /*   28BYJ-48 5V - Stepper motor    */
 /************************************/
@@ -13,12 +11,15 @@ STEP_NUM: BYTE 1
 CSEG
 ROT_TABLE: DB 0x08, 0x18, 0x10, 0x30, 0x20, 0x60, 0x40, 0x48
 
-;---------------------------
-;-----   INITIALIZE   ------
-;---------------------------
-;
-;--- void stepper_init(void);
-;
+;--------------------------------------;
+; Description:                         ;
+;    - Initializes the stepper motor   ;
+;      by setting the corresponding    ;
+;      pins in output mode.            ;
+;                                      ;
+; void stepper_init(void);             ;
+;--------------------------------------;
+
 .global stepper_init
 stepper_init:
 
@@ -37,15 +38,16 @@ stepper_init:
 	sts STEP_NUM, r16
 
 	ret
+;--------------------------------------------------;
+; Description:                                     ;
+;    - Moves 'steps' steps in                      ;
+;      'dir' direction                             ;
+;                                                  ;
+; void stepper_move(uint8_t dir, uint16_t steps);  ;
+; 	dir: r18                                   ;
+; 	steps: r20:r19                             ;
+;--------------------------------------------------;
 
-;----------------------------------------
-;--- moves 'steps' in 'dir' direction ---
-;----------------------------------------
-;
-;   void stepper_move(uint8_t dir, uint16_t steps);
-; 	dir: r18
-; 	steps: r20:r19
-;
 .global stepper_move
 stepper_move:
 

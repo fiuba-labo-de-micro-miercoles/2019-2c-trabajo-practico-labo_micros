@@ -5,6 +5,14 @@
 /*       Serial Protocol      */
 /******************************/
 
+;--------------------------------------;
+; Description:                         ;
+;   - Starts the serial connection,    ;
+;     in async mode and full speed     ;
+;                                      ;
+; void serial_init(void);              ;
+;--------------------------------------;
+
 .global serial_init
 serial_init:
 
@@ -23,6 +31,13 @@ serial_init:
 	sts UCSR0B, r16
 	
 	ret
+;-------------------------------------------;
+; Description:                              ;
+;   - Sends a byte through the serial port  ;
+;                                           ;
+; void serial_transmit(uint8_t data);       ;
+; 	data: r16                           ;
+;-------------------------------------------;
 
 .global serial_transmit
 serial_transmit:
@@ -33,8 +48,18 @@ serial_transmit:
 
 	ret
 
+;-------------------------------------------;
+; Description:                              ;
+;   - Sends a byte encoded in HEX format    ;
+;     through the serial port               ;
+;                                           ;
+; void serial_transmit_hex(uint8_t data);   ;
+; 	data: r16                           ;
+;-------------------------------------------;
+
 .global serial_transmit_hex
 serial_transmit_hex:
+
 	push r18
 	push r17
 	push r16
@@ -52,14 +77,13 @@ serial_transmit_hex:
 	lsr r16 ; Take 4 most significant bits to be codified
 	call encode_hex
 
-
 	sts UDR0, r16 ; send most significant hex digit
 	call mili_delay_1
 	sts UDR0, r17 ; send least significant hex digit
-
 
 	pop r16
 	pop r17
 	pop r18
 
 	ret
+
