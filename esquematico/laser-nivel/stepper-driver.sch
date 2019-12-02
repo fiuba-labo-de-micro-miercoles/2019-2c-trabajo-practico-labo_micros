@@ -1,0 +1,459 @@
+EESchema Schematic File Version 4
+LIBS:laser-nivel-cache
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 3 3
+Title "Laser Nivel"
+Date "2019-12-01"
+Rev "1"
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L laser-nivel-rescue:ULN2003A-ULN2003A U301
+U 1 1 5DD2B528
+P 3650 3400
+F 0 "U301" H 3650 3350 50  0000 C CNN
+F 1 "ULN2003A" H 3650 3200 50  0000 C CNN
+F 2 "" H 3650 3400 50  0001 C CNN
+F 3 "" H 3650 3400 50  0001 C CNN
+	1    3650 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R301
+U 1 1 5DD2DC80
+P 4600 2350
+F 0 "R301" H 4670 2396 50  0000 L CNN
+F 1 "1K" H 4670 2305 50  0000 L CNN
+F 2 "" V 4530 2350 50  0001 C CNN
+F 3 "~" H 4600 2350 50  0001 C CNN
+	1    4600 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R302
+U 1 1 5DD2E459
+P 4950 2350
+F 0 "R302" H 5020 2396 50  0000 L CNN
+F 1 "1K" H 5020 2305 50  0000 L CNN
+F 2 "" V 4880 2350 50  0001 C CNN
+F 3 "~" H 4950 2350 50  0001 C CNN
+	1    4950 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R303
+U 1 1 5DD2E86E
+P 5300 2350
+F 0 "R303" H 5370 2396 50  0000 L CNN
+F 1 "1K" H 5370 2305 50  0000 L CNN
+F 2 "" V 5230 2350 50  0001 C CNN
+F 3 "~" H 5300 2350 50  0001 C CNN
+	1    5300 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R304
+U 1 1 5DD2EA6B
+P 5650 2350
+F 0 "R304" H 5720 2396 50  0000 L CNN
+F 1 "1K" H 5720 2305 50  0000 L CNN
+F 2 "" V 5580 2350 50  0001 C CNN
+F 3 "~" H 5650 2350 50  0001 C CNN
+	1    5650 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED_ALT D301
+U 1 1 5DD34D43
+P 4600 2750
+F 0 "D301" V 4593 2632 50  0000 R CNN
+F 1 " " V 4548 2632 50  0001 R CNN
+F 2 "" H 4600 2750 50  0001 C CNN
+F 3 "~" H 4600 2750 50  0001 C CNN
+	1    4600 2750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED_ALT D302
+U 1 1 5DD35518
+P 4950 2750
+F 0 "D302" V 4943 2632 50  0000 R CNN
+F 1 " " V 4898 2632 50  0001 R CNN
+F 2 "" H 4950 2750 50  0001 C CNN
+F 3 "~" H 4950 2750 50  0001 C CNN
+	1    4950 2750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED_ALT D303
+U 1 1 5DD35781
+P 5300 2750
+F 0 "D303" V 5293 2632 50  0000 R CNN
+F 1 " " V 5248 2632 50  0001 R CNN
+F 2 "" H 5300 2750 50  0001 C CNN
+F 3 "~" H 5300 2750 50  0001 C CNN
+	1    5300 2750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED_ALT D304
+U 1 1 5DD35ABE
+P 5650 2750
+F 0 "D304" V 5643 2632 50  0000 R CNN
+F 1 " " V 5598 2632 50  0001 R CNN
+F 2 "" H 5650 2750 50  0001 C CNN
+F 3 "~" H 5650 2750 50  0001 C CNN
+	1    5650 2750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x07 J301
+U 1 1 5DD4625A
+P 2350 3450
+F 0 "J301" H 2268 3875 50  0000 C CNN
+F 1 "Conn_01x07" H 2268 3876 50  0001 C CNN
+F 2 "" H 2350 3450 50  0001 C CNN
+F 3 "~" H 2350 3450 50  0001 C CNN
+	1    2350 3450
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x05_Male J303
+U 1 1 5DD49142
+P 6400 3150
+F 0 "J303" H 6372 3128 50  0000 R CNN
+F 1 "frsd" H 6372 3083 50  0001 R CNN
+F 2 "" H 6400 3150 50  0001 C CNN
+F 3 "~" H 6400 3150 50  0001 C CNN
+	1    6400 3150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x04 J302
+U 1 1 5DD55248
+P 5200 4650
+F 0 "J302" V 5118 4362 50  0000 R CNN
+F 1 "Conn_01x04" V 5163 4362 50  0001 R CNN
+F 2 "" H 5200 4650 50  0001 C CNN
+F 3 "~" H 5200 4650 50  0001 C CNN
+	1    5200 4650
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:Jumper_NC_Small JP301
+U 1 1 5DD586DA
+P 5400 4300
+F 0 "JP301" H 5400 4421 50  0000 C CNN
+F 1 "Jumper_NC_Small" H 5400 4421 50  0001 C CNN
+F 2 "" H 5400 4300 50  0001 C CNN
+F 3 "~" H 5400 4300 50  0001 C CNN
+	1    5400 4300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2550 3150 2800 3150
+Wire Wire Line
+	2800 3150 2800 3050
+Wire Wire Line
+	2800 3050 3300 3050
+Wire Wire Line
+	2550 3250 2900 3250
+Wire Wire Line
+	2900 3250 2900 3200
+Wire Wire Line
+	2900 3200 3300 3200
+Wire Wire Line
+	2550 3350 3300 3350
+Wire Wire Line
+	2550 3450 2900 3450
+Wire Wire Line
+	2900 3450 2900 3500
+Wire Wire Line
+	2900 3500 3300 3500
+Wire Wire Line
+	2550 3550 2800 3550
+Wire Wire Line
+	2800 3550 2800 3650
+Wire Wire Line
+	2800 3650 3300 3650
+Wire Wire Line
+	2550 3650 2700 3650
+Wire Wire Line
+	2700 3650 2700 3800
+Wire Wire Line
+	2700 3800 3300 3800
+Wire Wire Line
+	2550 3750 2600 3750
+Wire Wire Line
+	2600 3750 2600 3950
+Wire Wire Line
+	2600 3950 3300 3950
+Wire Wire Line
+	4000 3050 4600 3050
+Wire Wire Line
+	4000 3200 4950 3200
+Wire Wire Line
+	5100 3200 5100 3150
+Wire Wire Line
+	5100 3150 6200 3150
+Wire Wire Line
+	4000 3350 5150 3350
+Wire Wire Line
+	5150 3350 5150 3250
+Wire Wire Line
+	5150 3250 5300 3250
+Wire Wire Line
+	4000 3500 5200 3500
+Wire Wire Line
+	5200 3500 5200 3350
+Wire Wire Line
+	5200 3350 5650 3350
+Wire Wire Line
+	4600 2500 4600 2600
+Wire Wire Line
+	4950 2500 4950 2600
+Wire Wire Line
+	5300 2500 5300 2600
+Wire Wire Line
+	5650 2500 5650 2600
+Wire Wire Line
+	6200 2950 6200 2100
+Wire Wire Line
+	6200 2100 5650 2100
+Wire Wire Line
+	5650 2100 5650 2200
+Wire Wire Line
+	5650 2100 5300 2100
+Wire Wire Line
+	5300 2100 5300 2200
+Connection ~ 5650 2100
+Wire Wire Line
+	5300 2100 4950 2100
+Wire Wire Line
+	4950 2100 4950 2200
+Connection ~ 5300 2100
+Wire Wire Line
+	4950 2100 4600 2100
+Wire Wire Line
+	4600 2100 4600 2200
+Connection ~ 4950 2100
+Wire Wire Line
+	4600 2900 4600 3050
+Connection ~ 4600 3050
+Wire Wire Line
+	4600 3050 6200 3050
+Wire Wire Line
+	4950 2900 4950 3200
+Connection ~ 4950 3200
+Wire Wire Line
+	4950 3200 5100 3200
+Wire Wire Line
+	5300 2900 5300 3250
+Connection ~ 5300 3250
+Wire Wire Line
+	5300 3250 6200 3250
+Wire Wire Line
+	5650 2900 5650 3350
+Connection ~ 5650 3350
+Wire Wire Line
+	5650 3350 6200 3350
+Wire Wire Line
+	5300 4300 5300 4350
+Wire Wire Line
+	5500 4450 5400 4450
+Wire Wire Line
+	5100 4450 4200 4450
+Wire Wire Line
+	3500 4450 3500 4000
+Wire Wire Line
+	5200 4450 5200 4350
+Wire Wire Line
+	5200 4350 3800 4350
+Wire Wire Line
+	3800 4350 3800 4000
+Wire Wire Line
+	5200 4350 5300 4350
+Connection ~ 5200 4350
+Connection ~ 5300 4350
+Wire Wire Line
+	5300 4350 5300 4450
+$Comp
+L power:GND #PWR0301
+U 1 1 5DD90969
+P 4200 4600
+F 0 "#PWR0301" H 4200 4350 50  0001 C CNN
+F 1 "GND" H 4205 4427 50  0000 C CNN
+F 2 "" H 4200 4600 50  0001 C CNN
+F 3 "" H 4200 4600 50  0001 C CNN
+	1    4200 4600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4200 4600 4200 4450
+Connection ~ 4200 4450
+Wire Wire Line
+	4200 4450 3500 4450
+Text GLabel 2000 2800 0    50   Input ~ 0
+IN1
+Text GLabel 2000 3000 0    50   Input ~ 0
+IN2
+Text GLabel 2000 3200 0    50   Input ~ 0
+IN3
+Text GLabel 2000 3450 0    50   Input ~ 0
+IN4
+Text GLabel 5200 4900 0    50   Input ~ 0
+Vin
+Wire Wire Line
+	2000 2800 2550 2800
+Wire Wire Line
+	2550 2800 2550 3150
+Connection ~ 2550 3150
+Wire Wire Line
+	2000 3000 2200 3000
+Wire Wire Line
+	2200 3000 2200 3250
+Wire Wire Line
+	2200 3250 2550 3250
+Connection ~ 2550 3250
+Wire Wire Line
+	2000 3200 2100 3200
+Wire Wire Line
+	2100 3200 2100 3350
+Wire Wire Line
+	2100 3350 2550 3350
+Connection ~ 2550 3350
+Wire Wire Line
+	2000 3450 2550 3450
+Connection ~ 2550 3450
+Wire Wire Line
+	5200 4900 5200 4450
+Connection ~ 5200 4450
+Wire Wire Line
+	5500 4300 5500 4350
+Wire Wire Line
+	5500 4350 6500 4350
+Wire Wire Line
+	6500 4350 6500 3700
+Wire Wire Line
+	6500 2950 6200 2950
+Connection ~ 5500 4350
+Wire Wire Line
+	5500 4350 5500 4450
+Connection ~ 6200 2950
+Wire Wire Line
+	6200 3050 6600 3050
+Wire Wire Line
+	6600 3050 6600 2750
+Connection ~ 6200 3050
+Wire Wire Line
+	6200 3150 6700 3150
+Wire Wire Line
+	6700 3150 6700 2950
+Connection ~ 6200 3150
+Wire Wire Line
+	6200 3250 6800 3250
+Wire Wire Line
+	6800 3250 6800 3150
+Connection ~ 6200 3250
+Connection ~ 6200 3350
+$Comp
+L power:GND #PWR?
+U 1 1 5DEAC87C
+P 2100 4050
+F 0 "#PWR?" H 2100 3800 50  0001 C CNN
+F 1 "GND" H 2105 3877 50  0000 C CNN
+F 2 "" H 2100 4050 50  0001 C CNN
+F 3 "" H 2100 4050 50  0001 C CNN
+	1    2100 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2550 3550 2100 3550
+Wire Wire Line
+	2100 3550 2100 3650
+Connection ~ 2550 3550
+Wire Wire Line
+	2550 3650 2100 3650
+Connection ~ 2550 3650
+Connection ~ 2100 3650
+Wire Wire Line
+	2100 3650 2100 3750
+Wire Wire Line
+	2550 3750 2100 3750
+Connection ~ 2550 3750
+Connection ~ 2100 3750
+Wire Wire Line
+	2100 3750 2100 4050
+$Comp
+L power:GND #PWR?
+U 1 1 5DEB37D7
+P 4650 3950
+F 0 "#PWR?" H 4650 3700 50  0001 C CNN
+F 1 "GND" H 4655 3777 50  0000 C CNN
+F 2 "" H 4650 3950 50  0001 C CNN
+F 3 "" H 4650 3950 50  0001 C CNN
+	1    4650 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 3650 4650 3650
+Wire Wire Line
+	4650 3650 4650 3800
+Wire Wire Line
+	4000 3800 4650 3800
+Connection ~ 4650 3800
+Wire Wire Line
+	4650 3800 4650 3950
+Wire Wire Line
+	4000 3950 4650 3950
+Connection ~ 4650 3950
+$Comp
+L Motor:Stepper_Motor_unipolar_5pin M1
+U 1 1 5DFB6B5F
+P 7950 3100
+F 0 "M1" H 8138 3224 50  0000 L CNN
+F 1 "Stepper-Motor-28BYJ-48" H 8138 3133 50  0000 L CNN
+F 2 "" H 7960 3090 50  0001 C CNN
+F 3 "http://www.infineon.com/dgdl/Application-Note-TLE8110EE_driving_UniPolarStepperMotor_V1.1.pdf?fileId=db3a30431be39b97011be5d0aa0a00b0" H 7960 3090 50  0001 C CNN
+	1    7950 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7750 2800 7500 2800
+Wire Wire Line
+	7500 2800 7500 3700
+Wire Wire Line
+	7500 3700 6500 3700
+Connection ~ 6500 3700
+Wire Wire Line
+	6500 3700 6500 2950
+Wire Wire Line
+	7850 2750 7850 2800
+Wire Wire Line
+	6600 2750 7850 2750
+Wire Wire Line
+	7400 2950 7400 2650
+Wire Wire Line
+	7400 2650 8050 2650
+Wire Wire Line
+	8050 2650 8050 2800
+Wire Wire Line
+	6700 2950 7400 2950
+Wire Wire Line
+	7400 3150 7400 3000
+Wire Wire Line
+	7400 3000 7650 3000
+Wire Wire Line
+	6800 3150 7400 3150
+Wire Wire Line
+	7650 3350 7650 3200
+Wire Wire Line
+	6200 3350 7650 3350
+$EndSCHEMATC
