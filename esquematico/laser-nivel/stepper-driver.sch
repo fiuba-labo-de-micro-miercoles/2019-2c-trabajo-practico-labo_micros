@@ -308,7 +308,7 @@ Text GLabel 2000 3200 0    50   Input ~ 0
 IN3
 Text GLabel 2000 3450 0    50   Input ~ 0
 IN4
-Text GLabel 5200 4900 0    50   Input ~ 0
+Text GLabel 5200 5050 0    50   Input ~ 0
 Vin
 Wire Wire Line
 	2000 2800 2550 2800
@@ -333,7 +333,7 @@ Wire Wire Line
 	2000 3450 2550 3450
 Connection ~ 2550 3450
 Wire Wire Line
-	5200 4900 5200 4450
+	5200 5050 5200 4450
 Connection ~ 5200 4450
 Wire Wire Line
 	5500 4300 5500 4350
@@ -363,57 +363,6 @@ Wire Wire Line
 	6800 3250 6800 3150
 Connection ~ 6200 3250
 Connection ~ 6200 3350
-$Comp
-L power:GND #PWR?
-U 1 1 5DEAC87C
-P 2100 4050
-F 0 "#PWR?" H 2100 3800 50  0001 C CNN
-F 1 "GND" H 2105 3877 50  0000 C CNN
-F 2 "" H 2100 4050 50  0001 C CNN
-F 3 "" H 2100 4050 50  0001 C CNN
-	1    2100 4050
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2550 3550 2100 3550
-Wire Wire Line
-	2100 3550 2100 3650
-Connection ~ 2550 3550
-Wire Wire Line
-	2550 3650 2100 3650
-Connection ~ 2550 3650
-Connection ~ 2100 3650
-Wire Wire Line
-	2100 3650 2100 3750
-Wire Wire Line
-	2550 3750 2100 3750
-Connection ~ 2550 3750
-Connection ~ 2100 3750
-Wire Wire Line
-	2100 3750 2100 4050
-$Comp
-L power:GND #PWR?
-U 1 1 5DEB37D7
-P 4650 3950
-F 0 "#PWR?" H 4650 3700 50  0001 C CNN
-F 1 "GND" H 4655 3777 50  0000 C CNN
-F 2 "" H 4650 3950 50  0001 C CNN
-F 3 "" H 4650 3950 50  0001 C CNN
-	1    4650 3950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4000 3650 4650 3650
-Wire Wire Line
-	4650 3650 4650 3800
-Wire Wire Line
-	4000 3800 4650 3800
-Connection ~ 4650 3800
-Wire Wire Line
-	4650 3800 4650 3950
-Wire Wire Line
-	4000 3950 4650 3950
-Connection ~ 4650 3950
 $Comp
 L Motor:Stepper_Motor_unipolar_5pin M1
 U 1 1 5DFB6B5F
@@ -456,4 +405,12 @@ Wire Wire Line
 	7650 3350 7650 3200
 Wire Wire Line
 	6200 3350 7650 3350
+Wire Notes Line
+	2250 1950 2250 4900
+Wire Notes Line
+	2250 4900 7100 4900
+Wire Notes Line
+	7100 4900 7100 1950
+Wire Notes Line
+	7100 1950 2250 1950
 $EndSCHEMATC
