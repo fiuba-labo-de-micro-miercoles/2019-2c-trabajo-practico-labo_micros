@@ -139,7 +139,7 @@ Text Label 7950 1250 0    60   ~ 0
 SCL
 Text Label 7950 1450 0    60   ~ 0
 AREF
-Text Notes 5925 675  0    60   ~ 0
+Text Notes 6525 725  0    60   ~ 0
 Shield for Arduino Mega Rev 3
 Text Notes 8250 1100 0    60   ~ 0
 Holes
@@ -314,13 +314,9 @@ Wire Wire Line
 Wire Wire Line
 	6900 1550 6800 1550
 Wire Notes Line
-	8000 1100 8000 600 
-Wire Notes Line
 	8750 1100 8000 1100
 Wire Notes Line
-	7400 750  7400 575 
-Wire Notes Line
-	5900 750  7400 750 
+	6500 800  8000 800 
 Wire Wire Line
 	6650 1750 6900 1750
 Wire Wire Line
@@ -700,4 +696,6 @@ Wire Wire Line
 Wire Wire Line
 	4850 2250 6800 2250
 Connection ~ 6800 2250
+Wire Notes Line
+	8000 600  8000 1100
 $EndSCHEMATC
