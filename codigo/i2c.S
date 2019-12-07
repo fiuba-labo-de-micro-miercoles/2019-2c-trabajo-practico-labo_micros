@@ -116,7 +116,7 @@ i2c_start:
 ;     read                                    ;
 ;                                             ;
 ; void i2c_connect(uint8_t regaddr);          ;
-; 	regaddr: r16                          ;
+; 	regaddr: r16                              ;
 ;---------------------------------------------;
 
 .global i2c_connect
@@ -200,7 +200,7 @@ i2c_init_read:
 ;     the current one.                         ;
 ;                                              ;
 ; void i2c_read(uint8_t more);                 ;
-; 	more: r17                              ;
+; 	more: r17                                  ;
 ;----------------------------------------------;
 
 .global i2c_read
@@ -297,7 +297,7 @@ wait_stop:
 ;   Enables Sensors by clearing   **
 ;     the SLEEP-MODE default      **
 ;***********************************
-;
+
 enable_sensor:
 
 	call i2c_start
@@ -347,7 +347,7 @@ enable_sensor:
 ;***********************************
 ;   Verify Slave default Address  **
 ;***********************************
-;
+
 check_connection:
 
 	call i2c_init_read
@@ -371,7 +371,7 @@ check_connection:
 ;************************************
 ;  Loops until TWINT flag is set   **
 ;************************************
-;
+
 wait_int_i2c:
 	lds r16, TWCR
 	sbrs r16, TWINT

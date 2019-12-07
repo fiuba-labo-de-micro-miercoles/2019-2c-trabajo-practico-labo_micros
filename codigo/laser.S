@@ -1,22 +1,27 @@
 #include "avrx.h"
 
-#define STEPS_IN_BURST 16
+#define STEPS_IN_BURST 8
 #define THRESHOLD_ACCEL_POSITIVE 300
 #define THRESHOLD_ACCEL_NEGATIVE -300
 #define POWER_SAVE_MODE 0b00000001
-#define PRESCALE      0b00000011
+#define PRESCALE        0b00000011
 #define ONLY_OVERFLOW   0b00000001
 
 CSEG
 
-/*******************/
-/*      SETUP      */
-/*******************/
 
+;--------------------------------;
+;              SETUP             ;
+; Description:                   ;
+;   Function that gets executed  ;
+;   once the microcontroller is  ;
+;   turned on                    ;
+;                                ;
+; void setup(void)               ;
+;--------------------------------;
 .global setup
 setup:
 
-	call serial_init
 	call i2c_init
 	call stepper_init
 	
@@ -34,17 +39,31 @@ setup:
 
 	ret 
 
-/********************/
-/*       LOOP       */
-/********************/
+;--------------------------------;
+;              LOOP              ;
+; Description:                   ;
+;   Function that gets executed  ;
+;   constantly after the setup   ;
+;                                ;
+; void loop(void)                ;
+;--------------------------------;
 
 .global loop
 loop:
-
-
 	sleep
-
 	ret
+
+;------------------------------;
+;   INTER HANDLER TIMER1 OVF   ;
+; Description:                 ;
+;	Handler of timer1 overflow ;
+;   interruption. It reads     ;
+;   from the accelerometer and ;
+;   turns the stepper to       ;
+;   correct the deviation      ;
+;   measured                   ;
+; void timer1_ovf_vect(void)   ;
+;------------------------------;
 
 .global TIMER1_OVF_vect
 TIMER1_OVF_vect:
@@ -73,26 +92,26 @@ TIMER1_OVF_vect:
 	; si es mayor que el threshold i.e. el threshold es menor que la acel
 	brlt turn_cw ; ir a girar sentido horario
 
-	; sino comparacion de mayorthreshold menor
+	; sino comparacion con el threshold menor
 	ldi r21, LOW(THRESHOLD_ACCEL_NEGATIVE)
 	ldi r22, HIGH(THRESHOLD_ACCEL_NEGATIVE)
 	sub r21, r16
 	sbc r22, r17
 	; si es mayor que el threshold i.e. el threshold es menor que la acel
-	brlt finish_loop; ir al fin
+	brlt finish_handler; ir al fin
 
 	; sino girar a la izquierda
 	ldi r18, 1
 	call stepper_move
 
-	rjmp finish_loop
+	rjmp finish_handler
 
 turn_cw:
 
 	ldi r18, 0
 	call stepper_move
 
-finish_loop:
+finish_handler:
 
 	pop r22
 	pop r21

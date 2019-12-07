@@ -44,8 +44,8 @@ stepper_init:
 ;      'dir' direction                             ;
 ;                                                  ;
 ; void stepper_move(uint8_t dir, uint16_t steps);  ;
-; 	dir: r18                                   ;
-; 	steps: r20:r19                             ;
+; 	dir: r18                                       ;
+; 	steps: r20:r19                                 ;
 ;--------------------------------------------------;
 
 .global stepper_move
@@ -70,13 +70,17 @@ forloop:
 
 	ret
 
-;----------------------------------
-;--- make one step of the motor ---
-;----------------------------------
-;
-;   void one_step(uint8_t dir);
-; 	dir: r18
-;
+;----------------------------------;
+; Description:                     ;
+;   Make one step of the motor     ;
+;   going counter-clockwise        ;
+;   if dir is diff than 0, anti    ;
+;   counter-clockwise otherwise    ;
+;                                  ;
+;   void one_step(uint8_t dir)     ;
+; 	dir: r18                       ;
+;----------------------------------;
+
 one_step:
 
 	push r16
