@@ -1,6 +1,8 @@
 #ifndef STEPPER_H
 #define STEPPER_H
 
+#define MAX_SEQ 8
+
 // Used pins
 #define PIN_0 3
 #define PIN_1 4

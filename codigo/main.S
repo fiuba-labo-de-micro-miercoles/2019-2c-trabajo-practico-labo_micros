@@ -1,8 +1,13 @@
 #include "avrx.h"
-
+/***********************************************/
+/* AUTOLEVELING LASER                          */
+/* CODE TO BE EXECUTED IN ATMEGA2056 AT 16MHZ  */
+/***********************************************/
 CSEG
 	rjmp main
+
 ORG _VECTORS_SIZE
+
 .global main
 main:
 	; initialize the stack
@@ -14,6 +19,7 @@ main:
 
 	call setup
 
-here:	call loop
+here:
+	call loop
 	rjmp here
 

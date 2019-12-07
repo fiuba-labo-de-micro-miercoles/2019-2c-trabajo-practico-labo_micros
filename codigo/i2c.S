@@ -1,21 +1,27 @@
 #include "avrx.h"
 #include "i2c.h"
 
-;-----------------------------
-;      TWI-I2C Protocol
-;-----------------------------
+/******************************/
+/*      TWI-I2C Protocol      */
+/******************************/
 
 DSEG
 WHO_AM_I_ADDR: BYTE 1
 
 CSEG
 
-;---------------------------
-;-----   INITIALIZE   ------
-;---------------------------
-;
-;---- void i2c_init(void);
-;
+;--------------------------------------------;
+; Description:                               ;
+;   - Starts the connection with             ;
+;     the MPU-6050 device and ask it         ;
+;     to receive the WHO_AM_I value,         ;
+;     and checks if the value is correct.    ;
+;     It also, enables the sensors, because  ;
+;     by default, they come in sleep-mode.   ;
+;                                            ;
+; void i2c_init(void);                       ;
+;--------------------------------------------;
+
 .global i2c_init
 i2c_init:
 
@@ -54,12 +60,14 @@ i2c_init:
 
 	ret
 
-;************************
-;**  START CONNECTION  **
-;************************
-;
-;----- void i2c_start(void);
-;
+;--------------------------------------------;
+; Description:                               ;
+;   - Starts the connection with             ;
+;     the MPU-6050 device in WRITE mode      ;
+;                                            ;
+; void i2c_start(void);                      ;
+;--------------------------------------------;
+
 .global i2c_start
 i2c_start:
 
@@ -101,13 +109,16 @@ i2c_start:
 
 	ret
 
-;******************
-;**  CONNECTION  **
-;******************
-;
-;----- void i2c_connect(regaddr);
-;--------- regaddr: r16
-;
+;---------------------------------------------;
+; Description:                                ;
+;   - Connects with the MPU-6050 device, and  ;
+;     tells it which register it's going to   ;
+;     read                                    ;
+;                                             ;
+; void i2c_connect(uint8_t regaddr);          ;
+; 	regaddr: r16                              ;
+;---------------------------------------------;
+
 .global i2c_connect
 i2c_connect:
 
@@ -145,10 +156,17 @@ i2c_connect:
 
 	ret
 
-;*****************
-;**  READ Byte  **
-;*****************
-;
+;------------------------------------------;
+; Description:                             ;
+;   - Initializes reading protocol, by     ;
+;     sending the slave address in         ;
+;     READ mode. It should only be called  ;
+;     once before start reading bytes      ;
+;     from the device.                     ;
+;                                          ;
+; void i2c_init_read(void);                ;
+;------------------------------------------;
+
 .global i2c_init_read
 i2c_init_read:
 
@@ -171,9 +189,20 @@ i2c_init_read:
 
 	ret
 
-;----- void i2c_read(more);
-;---------- more: r17
-;
+;----------------------------------------------;
+; Description:                                 ;
+;   - Reads a byte from the device.            ;
+;     Depending on the argument 'more'         ;
+;     it will send an ACK if 'more' is true    ;
+;     or it will send a NACK, if 'more' is     ;
+;     false. The argument 'more', stands for   ;
+;     more bytes to be read after              ;
+;     the current one.                         ;
+;                                              ;
+; void i2c_read(uint8_t more);                 ;
+; 	more: r17                                  ;
+;----------------------------------------------;
+
 .global i2c_read
 i2c_read:
 	
@@ -237,12 +266,13 @@ finish_read:
 
 	ret
 
-;**********************
-;**  END CONNECTION  **
-;**********************
-;
-;----- void i2c_end(void);
-;
+;--------------------------------;
+; Description:                   ;
+;   - Send the STOP signal.      ;
+;                                ;
+; void i2c_end(void);            ;
+;---------------------------------;
+
 .global i2c_end
 i2c_end:
 
@@ -267,7 +297,7 @@ wait_stop:
 ;   Enables Sensors by clearing   **
 ;     the SLEEP-MODE default      **
 ;***********************************
-;
+
 enable_sensor:
 
 	call i2c_start
@@ -317,7 +347,7 @@ enable_sensor:
 ;***********************************
 ;   Verify Slave default Address  **
 ;***********************************
-;
+
 check_connection:
 
 	call i2c_init_read
@@ -341,7 +371,7 @@ check_connection:
 ;************************************
 ;  Loops until TWINT flag is set   **
 ;************************************
-;
+
 wait_int_i2c:
 	lds r16, TWCR
 	sbrs r16, TWINT
