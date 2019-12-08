@@ -116,7 +116,7 @@ i2c_start:
 ;     read                                    ;
 ;                                             ;
 ; void i2c_connect(uint8_t regaddr);          ;
-; 	regaddr: r16                              ;
+; 	regaddr: r16                          ;
 ;---------------------------------------------;
 
 .global i2c_connect
@@ -200,7 +200,7 @@ i2c_init_read:
 ;     the current one.                         ;
 ;                                              ;
 ; void i2c_read(uint8_t more);                 ;
-; 	more: r17                                  ;
+; 	more: r17                              ;
 ;----------------------------------------------;
 
 .global i2c_read
@@ -271,7 +271,7 @@ finish_read:
 ;   - Send the STOP signal.      ;
 ;                                ;
 ; void i2c_end(void);            ;
-;---------------------------------;
+;--------------------------------;
 
 .global i2c_end
 i2c_end:

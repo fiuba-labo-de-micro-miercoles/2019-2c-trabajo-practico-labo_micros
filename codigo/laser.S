@@ -1,14 +1,16 @@
 #include "avrx.h"
 
 #define STEPS_IN_BURST 8
+
 #define THRESHOLD_ACCEL_POSITIVE 300
 #define THRESHOLD_ACCEL_NEGATIVE -300
+
 #define POWER_SAVE_MODE 0b00000001
+
 #define PRESCALE        0b00000011
 #define ONLY_OVERFLOW   0b00000001
 
 CSEG
-
 
 ;--------------------------------;
 ;              SETUP             ;
@@ -24,17 +26,16 @@ setup:
 
 	call i2c_init
 	call stepper_init
-	
 
 	ldi r16, POWER_SAVE_MODE ; enable power_save_mode for later
-	out _SFR_IO_ADDR(SMCR), r16
-	
+	out _SFR_IO_ADDR(SMCR), r16	
 
 	ldi r16, PRESCALE
 	sts TCCR1B, r16; start timer
 
 	ldi r16, ONLY_OVERFLOW
 	sts TIMSK1, r16 
+
 	sei ; enable interruptions
 
 	ret 
@@ -53,17 +54,18 @@ loop:
 	sleep
 	ret
 
-;------------------------------;
-;   INTER HANDLER TIMER1 OVF   ;
-; Description:                 ;
-;	Handler of timer1 overflow ;
-;   interruption. It reads     ;
-;   from the accelerometer and ;
-;   turns the stepper to       ;
-;   correct the deviation      ;
-;   measured                   ;
-; void timer1_ovf_vect(void)   ;
-;------------------------------;
+;-------------------------------;
+;   INTER HANDLER TIMER1 OVF    ;
+; Description:                  ;
+;   Handler of timer1 overflow  ;
+;   interruption. It reads      ;
+;   from the accelerometer and  ;
+;   turns the stepper to        ;
+;   correct the deviation       ;
+;   measured                    ;
+;                               ;
+; void timer1_ovf_vect(void)    ;
+;-------------------------------;
 
 .global TIMER1_OVF_vect
 TIMER1_OVF_vect:

@@ -41,6 +41,6 @@ get_acceleration:
 	call i2c_read
 	sts ACCEL_X_L_VAL, r16
 
-    call i2c_end
+	call i2c_end
 
 	ret

@@ -1,8 +1,10 @@
 #include "avrx.h"
+
 /***********************************************/
 /* AUTOLEVELING LASER                          */
 /* CODE TO BE EXECUTED IN ATMEGA2056 AT 16MHZ  */
 /***********************************************/
+
 CSEG
 	rjmp main
 
