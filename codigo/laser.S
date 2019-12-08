@@ -5,7 +5,8 @@
 #define THRESHOLD_ACCEL_POSITIVE 300
 #define THRESHOLD_ACCEL_NEGATIVE -300
 
-#define POWER_SAVE_MODE 0b00000001
+#define SLEEP_EN 0x1
+#define IDLE_MODE 0x0
 
 #define PRESCALE        0b00000011
 #define ONLY_OVERFLOW   0b00000001
@@ -21,13 +22,16 @@ CSEG
 ;                                ;
 ; void setup(void)               ;
 ;--------------------------------;
+
 .global setup
 setup:
 
 	call i2c_init
 	call stepper_init
 
-	ldi r16, POWER_SAVE_MODE ; enable power_save_mode for later
+	; enables sleep mode and sets it
+	; in "idle-mode" for later
+	ldi r16, (IDLE_MODE | SLEEP_EN)
 	out _SFR_IO_ADDR(SMCR), r16	
 
 	ldi r16, PRESCALE
