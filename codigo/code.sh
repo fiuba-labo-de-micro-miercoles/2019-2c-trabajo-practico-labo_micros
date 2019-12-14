@@ -1,0 +1,1 @@
+find -regextype posix-egrep -type f -regex '.*\.(S|h)' | sort -r | tac | xargs -- a2ps -q -1 -Av --toc --line-numbers=1 --tabsize=2 --header='[66.09] Laboratorio de Microcomputadoras - (curso: 2.2019) Proyecto: Laser Autonivelante' --left-footer='%D{%c}' --footer='$f' -g -o - | ps2pdf - codigo.pdf
